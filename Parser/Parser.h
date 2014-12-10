@@ -36,7 +36,12 @@
 
 #include <Arduino.h>
 
-class Parser
+/*! \brief Obsługa połączeń przychodzących
+ *  \note Ze względu na prostotę zrezygnowano z rozwiązania szablonowego.
+ *
+ * Klasa umożliwia pobieranie z dowolnego strumienia danych o określonej wielkości i przekazywanie ich po pobraniu do wybranej funkcji zwrotnej.
+ *
+ */ class Parser
 {
 
 	protected:
