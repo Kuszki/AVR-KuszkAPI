@@ -62,11 +62,13 @@
 
 		unsigned uScale;	//!< Aktualnie używany prescaler.
 		unsigned uCount;	//!< Liczba impulsów do zliczenia.
+		unsigned uPrev;	//!< Impulsy do pierwszego zdarzenia.
 
 	public:
 
 		/*! \brief Konstruktor obiektu.
 		 *  \param [in] eNumber Określna numer użytego licznika.
+		 *  \warning Nie dokonuję się sprawdzania czy wybrany licznik jest w użyciu. Należy zatem pamiętać by nie dublować liczników.
 		 *
 		 * Inicjuje wszystkie pola obiektu na zero.
 		 *
@@ -86,11 +88,16 @@
 		 */ bool Start(void);
 
 		/*! \brief Wyłącza licznik.
-		 *  \return Powodzenie operacji.
 		 *
-		 * Wyłącza aktywny licznik bez resetowania jego pozycji.
+		 * Wyłącza aktywny licznik bez resetowania jego pozycji. Aby wznowić działanie licznika bez potrzeby obliczania parametrów i ustalania flag użyj metody Resume().
 		 *
 		 */ void Stop(void);
+
+		/*! \brief Wznawia licznik.
+		 *
+		 * Przywraca pracę wybranego licznika bez potrzeby obliczania na nowo jego parametrów.
+		 *
+		 */ void Resume(void);
 
 		/*! \brief Sprawdza czy licznik jest aktywny.
 		 *  \return Stan licznika.
@@ -100,26 +107,30 @@
 		 */ bool Active(void) const;
 
 		/*! \brief Ustawia licznik.
-		 *  \param [in] uFreq Częstotliwość wyzwalania.
+		 *  \param [in] uFreq	Częstotliwość wyzwalania.
+		 *  \param [in] uProc	Chwila pierwszego zdarzenia wyrażona w kątach (0 - 360).
+		 *  \note Jeśli chcesz nastawić częstotliwość poniżej 1Hz możesz użyć funkcji SetTime().
 		 *
-		 * Ustala odpowiednie parametry licznika i zeruje jego stan.
+		 * Ustala odpowiednie parametry licznika potrzebne do aktywowania go na podstawie podanej częstotliwości wyzwalania zdarzenia. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start().
 		 *
-		 */ void SetFreq(long unsigned uFreq);
+		 */ void SetFreq(unsigned long uFreq, unsigned short uProc = 0);
 
 		/*! \brief Ustawia licznik.
-		 *  \param [in] uTime Okres wyzwalania.
+		 *  \param [in] uTime	Okres wyzwalania w mikrosekundach (us).
+		 *  \param [in] uProc	Chwila pierwszego zdarzenia wyrażona w kątach (0 - 360).
 		 *
-		 * Ustala odpowiednie parametry licznika i zeruje jego stan.
+		 * Ustala odpowiednie parametry licznika potrzebne do aktywowania go na podstawie podanego czasu oczekiwania. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start().
 		 *
-		 */ void SetTime(long unsigned uTime);
+		 */ void SetTime(unsigned long uTime, unsigned short uProc = 0);
 
 		/*! \brief Ustawia licznik.
 		 *  \param [in] uDiv	Wybrany prescaler.
-		 *  \param [in] uCap	Wybrana pojemność.
+		 *  \param [in] uCap	Wybrana pojemność zdarzenia.
+		 *  \param [in] uPre	Pojemność pierwszego zdarzenia.
 		 *  \warning Istotne jest by parametry były zgodne ze specyfikacją licznika. Nie będą one bowiem sprawdzane pod kątem poprawności szerokości licznika.
 		 *
-		 * Ustala parametry licznika ręcznie i zeruje jego stan.
+		 * Ustala ręcznie odpowiednie parametry licznika potrzebne do aktywowania go. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start().
 		 *
-		 */ void SetPrefs(unsigned uDiv, unsigned uCap);
+		 */ void SetPrefs(unsigned uDiv, unsigned uCap, unsigned uPre = 0);
 
 };
