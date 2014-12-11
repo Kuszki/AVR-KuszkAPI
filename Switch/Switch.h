@@ -43,18 +43,18 @@
  */ class Switch
 {
 
-	protected:
+	/*! \brief Sposób działania przycisku.
+	 *
+	 * Definiuje na jakie zbocze będzie reagował przycisk (przy jakim zboczu nastąpi zmiana jego stanu).
+	 *
+	 */ public: enum MODE
+	{
+		ON_RISING,	//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane z narastaniem zbocza sygnału.
+		ON_FALLING,	//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane z opadaniem zbocza sygnału.
+		ON_SWITCH		//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane ze zmianą fizyczną przycisku.
+	};
 
-		/*! \brief Sposób działania przycisku.
-		 *
-		 * Definiuje na jakie zbocze będzie reagował przycisk (przy jakim zboczu nastąpi zmiana jego stanu).
-		 *
-		 */ enum MODE
-		{
-			ON_RISING,	//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane z narastaniem zbocza sygnału.
-			ON_FALLING,	//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane z opadaniem zbocza sygnału.
-			ON_SWITCH		//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane ze zmianą fizyczną przycisku.
-		};
+	protected:
 
 		typedef void (*ONCHANGE)(bool); //!< Prototyp funkcji zwrotnej wywoływanej przy zdarzeniu przycisku.
 
