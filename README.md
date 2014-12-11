@@ -29,4 +29,4 @@ Dokumentacja
 
 Możesz wygenerować dokumentację samemu za pomocą programu <a target="_blank" href="http://www.stack.nl/~dimitri/doxygen/index.html">Doxygen</a> lub wysłać mi maila z prośbą o udostępnienie dokumentacji. Dokumentacja znajduję się też na moim <a target="_blank" href="http://kuszki.myftp.org">serwerze</a>, nie gwarantuję jednak, że będzie on czynny.
 
-Aby wygenerować dokumentację użyj pliku `Doxyfile` znajdującego się w projekcie. Pamiętaj jednak aby odpowiednio nastawić katalog roboczy oraz katalog z kodem źródłowym (domyślnie plik powinien znajdować się w katalog głównym projektu, tam też zostanie wygenerowana dokumentacja).
+Aby wygenerować dokumentację użyj pliku `Doxyfile` znajdującego się w projekcie. Pamiętaj jednak aby odpowiednio nastawić katalog roboczy oraz katalog z kodem źródłowym (domyślnie plik powinien znajdować się w katalogu głównym projektu, tam też zostanie wygenerowana dokumentacja).
