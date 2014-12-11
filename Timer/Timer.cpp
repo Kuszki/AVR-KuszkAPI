@@ -158,13 +158,13 @@ void Timer::SetFreq(long unsigned uFreq)
 	unsigned puDivs[] = { 1, 8, 64, 256, 1024 };
 	unsigned puCaps[] = { 255, 65535, 255 };
 
-     register unsigned long	uCap;
-     register unsigned short	i;
+	register unsigned long	uCap;
+	register unsigned short	i;
 
-     for (i = 0; i < 5; i++) if ((uCap = F_CPU / (puDivs[i] * uFreq) - 1) < 256) break;
+	for (i = 0; i < 5; i++) if ((uCap = F_CPU / (puDivs[i] * uFreq) - 1) < 256) break;
 
-     uCount	=	(uCap > puCaps[eTimer]) ? 0 : uCap;
-     uScale	=	puDivs[i];
+	uCount	=	(uCap > puCaps[eTimer]) ? 0 : uCap;
+	uScale	=	puDivs[i];
 }
 
 void Timer::SetTime(long unsigned uTime)
