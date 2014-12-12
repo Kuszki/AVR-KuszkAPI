@@ -49,9 +49,9 @@
 	 *
 	 */ public: enum MODE
 	{
+		ON_SWITCH,	//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane ze zmianą fizyczną przycisku.
 		ON_RISING,	//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane z narastaniem zbocza sygnału.
-		ON_FALLING,	//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane z opadaniem zbocza sygnału.
-		ON_SWITCH		//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane ze zmianą fizyczną przycisku.
+		ON_FALLING	//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane z opadaniem zbocza sygnału.
 	};
 
 	protected:
