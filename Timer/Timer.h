@@ -39,8 +39,11 @@
 /*! \brief Obsługa przerwań licznika czasu.
  *  \note Przerwanie wybranego timera należy zaimplementować ręcznie.
  *  \note Klasa działa także z innymi płytkami, nie tylko z Arduino.
+ *  \bug Po aktywacji licznika metodą Start() zdarza się, że pierwsze wyzwolenie nastąpi w nieokreślonym czasie. Takie działanie ma miejsce gdy ręcznie załączymy zliczanie w trakcie programu. Timer aktywowany na początku programu działa zwykle poprawnie. Bug dotyczy tylko pierwszego wyzwolenia. Zdarzenie odnotowano tylko dla licznika T2 - dla pozostałych liczników nie przeprowadzono testów.
  *
  * Klasa umożliwia automatyczne utworzenie przerwania wywoływanego z określoną częstotliowścią lub określonym czasem.
+ *
+ * Aby obsłużyć główne zdarzenie zdefiniuj w programie przerwanie TIMERX_COMPA_vect, gdzie X to numer licznika (0, 1 lub 2). W celu obsłurzenie przerwania pomocniczego adefiniuj przerwanie TIMERX_COMPB_vect.
  *
  */ class Timer
 {
@@ -56,13 +59,27 @@
 		T3	//!< Trzeci licznik - zakres od 0 do 255.
 	};
 
+	/*! \brief Enumeracja dostępnych prescalerów.
+	 *
+	 * Określa prescaler z którego korzystamy.
+	 *
+	 */ public: enum SCALER
+	{
+		P1,		//!< Prescaler 1/1.
+		P8,		//!< Prescaler 1/8.
+		P64,		//!< Prescaler 1/64.
+		P256,	//!< Prescaler 1/265.
+		P1024	//!< Prescaler 1/1024.
+	};
+
 	protected:
 
-		const TIMER eTimer;	//!< Stały indeks używanego licznika.
+		const TIMER eTimer;		//!< Stały indeks używanego licznika.
 
-		unsigned uScale;	//!< Aktualnie używany prescaler.
-		unsigned uCount;	//!< Liczba impulsów do zliczenia.
-		unsigned uPrev;	//!< Impulsy do pierwszego zdarzenia.
+		unsigned char uScale;	//!< Aktualnie używany prescaler.
+
+		unsigned uCount;		//!< Liczba impulsów do zliczenia.
+		unsigned uPrev;		//!< Impulsy do pierwszego zdarzenia.
 
 	public:
 
@@ -93,11 +110,24 @@
 		 *
 		 */ void Stop(void);
 
+		/*! \brief Zeruje licznik i restartuje pomiar.
+		 *
+		 * Powoduje, że cykl zliczania zaczyna się od nowa.
+		 *
+		 */ void Reset(void);
+
 		/*! \brief Wznawia licznik.
 		 *
 		 * Przywraca pracę wybranego licznika bez potrzeby obliczania na nowo jego parametrów.
 		 *
 		 */ void Resume(void);
+
+		/*! \brief Aktywuje nowe ustawienia.
+		 *  \see SetFreq(), SetTime(), SetPrefs().
+		 *
+		 * Wprowadza w życie nowe ustawienia licznika.
+		 *
+		 */ void Refresh(void);
 
 		/*! \brief Sprawdza czy licznik jest aktywny.
 		 *  \return Stan licznika.
@@ -107,30 +137,31 @@
 		 */ bool Active(void) const;
 
 		/*! \brief Ustawia licznik.
-		 *  \param [in] uFreq	Częstotliwość wyzwalania.
-		 *  \param [in] uProc	Chwila pierwszego zdarzenia wyrażona w kątach (0 - 360).
+		 *  \param [in] uFreqA	Częstotliwość wyzwalania w hercach (Hz).
+		 *  \param [in] uFreqB	Częstotliwość wyzwalania pomocniczego zdarzenia w hercach (Hz).
 		 *  \note Jeśli chcesz nastawić częstotliwość poniżej 1Hz możesz użyć funkcji SetTime().
 		 *
-		 * Ustala odpowiednie parametry licznika potrzebne do aktywowania go na podstawie podanej częstotliwości wyzwalania zdarzenia. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start().
+		 * Ustala odpowiednie parametry licznika potrzebne do aktywowania go na podstawie podanej częstotliwości wyzwalania zdarzenia. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start() lub Refresh().
 		 *
-		 */ void SetFreq(unsigned long uFreq, unsigned short uProc = 0);
+		 */ void SetFreq(unsigned long uFreqA, unsigned long uFreqB = 0);
 
 		/*! \brief Ustawia licznik.
-		 *  \param [in] uTime	Okres wyzwalania w mikrosekundach (us).
-		 *  \param [in] uProc	Chwila pierwszego zdarzenia wyrażona w kątach (0 - 360).
+		 *  \param [in] uTimeA	Okres wyzwalania zdarzenia w mikrosekundach (us).
+		 *  \param [in] uTimeB	Okres wyzwalania pomocniczego zdarzenia w mikrosekundach (us) - musi być większy od okresu pierwszego wydarzenia.
 		 *
-		 * Ustala odpowiednie parametry licznika potrzebne do aktywowania go na podstawie podanego czasu oczekiwania. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start().
+		 * Ustala odpowiednie parametry licznika potrzebne do aktywowania go na podstawie podanego czasu. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start() lub Refresh().
 		 *
-		 */ void SetTime(unsigned long uTime, unsigned short uProc = 0);
+		 */ void SetTime(unsigned long uTimeA, unsigned long uTimeB = 0);
 
 		/*! \brief Ustawia licznik.
-		 *  \param [in] uDiv	Wybrany prescaler.
-		 *  \param [in] uCap	Wybrana pojemność zdarzenia.
-		 *  \param [in] uPre	Pojemność pierwszego zdarzenia.
+		 *  \param [in] eScale	Wybrany prescaler.
+		 *  \param [in] uCapA	Wybrana pojemność zdarzenia.
+		 *  \param [in] uCapB	Pojemność pierwszego zdarzenia.
+		 *  \see SCALER.
 		 *  \warning Istotne jest by parametry były zgodne ze specyfikacją licznika. Nie będą one bowiem sprawdzane pod kątem poprawności szerokości licznika.
 		 *
 		 * Ustala ręcznie odpowiednie parametry licznika potrzebne do aktywowania go. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start().
 		 *
-		 */ void SetPrefs(unsigned uDiv, unsigned uCap, unsigned uPre = 0);
+		 */ void SetPrefs(SCALER eScale, unsigned uCapA, unsigned uCapB = 0);
 
 };

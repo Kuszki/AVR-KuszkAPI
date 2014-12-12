@@ -23,93 +23,40 @@ bool Timer::Start(void)
 	{
 		case T1:
 
-			switch (uScale)
-			{
-				case 1:
-					TCCR0B = _BV(CS00);
-				break;
-				case 8:
-					TCCR0B = _BV(CS01);
-				break;
-				case 64:
-					TCCR0B = _BV(CS00) | _BV(CS01);
-				break;
-				case 256:
-					TCCR0B = _BV(CS02);
-				break;
-				case 1024:
-					TCCR0B = _BV(CS00) | _BV(CS02);
-				break;
-			}
-
-			TCCR0A	=	_BV(WGM01);
+			TCCR0A	=	2;
+			TCCR0B	= 	uScale;
 
 			OCR0A	=	uCount;
 			OCR0B	=	uPrev;
 
-			TIMSK0	=	OCR0B ? _BV(OCIE0A) | _BV(OCIE0B) : _BV(OCIE0A);
+			TIMSK0	=	OCR0B ? 6 : 2;
 
 			TCNT0	=	0;
 
 		break;
 		case T2:
 
-			switch (uScale)
-			{
-				case 1:
-					TCCR1B = _BV(CS10) | _BV(WGM12);
-				break;
-				case 8:
-					TCCR1B = _BV(CS11) | _BV(WGM12);
-				break;
-				case 64:
-					TCCR1B = _BV(CS10) | _BV(CS11) | _BV(WGM12);
-				break;
-				case 256:
-					TCCR1B = _BV(CS12) | _BV(WGM12);
-				break;
-				case 1024:
-					TCCR1B = _BV(CS10) | _BV(CS12) | _BV(WGM12);
-				break;
-			}
 
 			TCCR1A	=	0;
+			TCCR1B	= 	uScale | 8;
 
 			OCR1A	=	uCount;
 			OCR1B	=	uPrev;
 
-			TIMSK1	=	OCR1B ? _BV(OCIE1A) | _BV(OCIE1B) : _BV(OCIE1A);
+			TIMSK1	=	OCR1B ? 6 : 2;
 
 			TCNT1	=	0;
 
 		break;
 		case T3:
 
-			switch (uScale)
-			{
-				case 1:
-					TCCR2B = _BV(CS20);
-				break;
-				case 8:
-					TCCR2B = _BV(CS21);
-				break;
-				case 64:
-					TCCR2B = _BV(CS20) | _BV(CS21);
-				break;
-				case 256:
-					TCCR2B = _BV(CS22);
-				break;
-				case 1024:
-					TCCR2B = _BV(CS20) | _BV(CS22);
-				break;
-			}
-
-			TCCR2A	=	_BV(WGM21);
+			TCCR2A	=	2;
+			TCCR2B	= 	uScale;
 
 			OCR2A	=	uCount;
 			OCR2B	=	uPrev;
 
-			TIMSK2	=	OCR2B ? _BV(OCIE2A) | _BV(OCIE2B) : _BV(OCIE2A);
+			TIMSK2	=	OCR2B ? 6 : 2;
 
 			TCNT2	=	0;
 
@@ -141,18 +88,77 @@ void Timer::Stop(void)
 	sei();
 }
 
-void Timer::Resume(void)
+void Timer::Reset(void)
 {
 	switch (eTimer)
 	{
 		case T1:
-			TIMSK0 = OCR0B ? _BV(OCIE0A) | _BV(OCIE0B) : _BV(OCIE0A);
+			TCNT0 = 0;
 		break;
 		case T2:
-			TIMSK1 = OCR1B ? _BV(OCIE1A) | _BV(OCIE1B) : _BV(OCIE1A);
+			TCNT1 = 0;
 		break;
 		case T3:
-			TIMSK2 = OCR2B ? _BV(OCIE2A) | _BV(OCIE2B) : _BV(OCIE2A);
+			TCNT2 = 0;
+		break;
+	}
+}
+
+void Timer::Resume(void)
+{
+	cli();
+
+	switch (eTimer)
+	{
+		case T1:
+			TIMSK0 = OCR0B ? 6 : 2;
+		break;
+		case T2:
+			TIMSK1 = OCR1B ? 6 : 2;
+		break;
+		case T3:
+			TIMSK2 = OCR2B ? 6 : 2;
+		break;
+	}
+
+	sei();
+}
+
+void Timer::Refresh(void)
+{
+	cli();
+
+	switch (eTimer)
+	{
+		case T1:
+
+			TCCR0B	= 	uScale;
+
+			OCR0A	=	uCount;
+			OCR0B	=	uPrev;
+
+			TCNT0	=	0;
+
+		break;
+		case T2:
+
+			TCCR1B	= 	uScale | 8;
+
+			OCR1A	=	uCount;
+			OCR1B	=	uPrev;
+
+			TCNT1	=	0;
+
+		break;
+		case T3:
+
+			TCCR2B	= 	uScale;
+
+			OCR2A	=	uCount;
+			OCR2B	=	uPrev;
+
+			TCNT2	=	0;
+
 		break;
 	}
 
@@ -175,7 +181,7 @@ bool Timer::Active(void) const
 	}
 }
 
-void Timer::SetFreq(unsigned long uFreq, unsigned short uProc)
+void Timer::SetFreq(unsigned long uFreqA, unsigned long uFreqB)
 {
 	unsigned puDivs[] = { 1, 8, 64, 256, 1024 };
 	unsigned puCaps[] = { 255, 65535, 255 };
@@ -183,14 +189,14 @@ void Timer::SetFreq(unsigned long uFreq, unsigned short uProc)
 	register unsigned long	uCap;
 	register unsigned short	i;
 
-	for (i = 0; i < 5; i++) if ((uCap = F_CPU / (puDivs[i] * uFreq) - 1) < puCaps[eTimer]) break;
+	for (i = 0; i < 5; i++) if ((uCap = (F_CPU / puDivs[i]) / uFreqA - 1) < puCaps[eTimer]) break;
 
 	uCount	=	(uCap > puCaps[eTimer]) ? 0 : uCap;
-	uPrev	=	uProc ? (uProc * uCount) / 360 : 0;
-	uScale	=	puDivs[i];
+	uPrev	=	(uFreqB && uCount) ? (F_CPU / puDivs[i]) / uFreqB - 1 : 0;
+	uScale	=	i + 1;
 }
 
-void Timer::SetTime(unsigned long uTime, unsigned short uProc)
+void Timer::SetTime(unsigned long uTimeA, unsigned long uTimeB)
 {
 	unsigned puDivs[] = { 1, 8, 64, 256, 1024 };
 	unsigned puCaps[] = { 255, 65535, 255 };
@@ -198,16 +204,16 @@ void Timer::SetTime(unsigned long uTime, unsigned short uProc)
 	register unsigned long	uCap;
 	register unsigned short	i;
 
-	for (i = 0; i < 5; i++) if ((uCap = (F_CPU / 1000000) * (uTime / puDivs[i]) - 1) < puCaps[eTimer]) break;
+	for (i = 0; i < 5; i++) if ((uCap = (F_CPU / 1000000) * (uTimeA / puDivs[i]) - 1) < puCaps[eTimer]) break;
 
 	uCount	=	(uCap > puCaps[eTimer]) ? 0 : uCap;
-	uPrev	=	uProc ? (uProc * uCount) / 360 : 0;
-	uScale	=	puDivs[i];
+	uPrev	=	(uTimeB && uCount) ? (F_CPU / 1000000) * (uTimeB / puDivs[i]) - 1 : 0;
+	uScale	=	i + 1;
 }
 
-void Timer::SetPrefs(unsigned uDiv, unsigned uCap, unsigned uPre)
+void Timer::SetPrefs(SCALER eScale, unsigned uCapA, unsigned uCapB)
 {
-	uScale	=	uDiv;
-	uCount	=	uCap;
-	uPrev	=	uPre;
+	uScale	=	eScale + 1;
+	uCount	=	uCapA;
+	uPrev	=	uCapB;
 }
