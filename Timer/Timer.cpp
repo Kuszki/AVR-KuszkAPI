@@ -48,19 +48,6 @@ bool Timer::Start(void)
 			TCNT1	=	0;
 
 		break;
-		case T3:
-
-			TCCR2A	=	2;
-			TCCR2B	= 	uScale;
-
-			OCR2A	=	uCount;
-			OCR2B	=	uPrev;
-
-			TIMSK2	=	OCR2B ? 6 : 2;
-
-			TCNT2	=	0;
-
-		break;
 	}
 
 	sei();
@@ -80,9 +67,6 @@ void Timer::Stop(void)
 		case T2:
 			TIMSK1 = 0;
 		break;
-		case T3:
-			TIMSK2 = 0;
-		break;
 	}
 
 	sei();
@@ -98,9 +82,6 @@ void Timer::Reset(void)
 		case T2:
 			TCNT1 = 0;
 		break;
-		case T3:
-			TCNT2 = 0;
-		break;
 	}
 }
 
@@ -115,9 +96,6 @@ void Timer::Resume(void)
 		break;
 		case T2:
 			TIMSK1 = OCR1B ? 6 : 2;
-		break;
-		case T3:
-			TIMSK2 = OCR2B ? 6 : 2;
 		break;
 	}
 
@@ -150,16 +128,6 @@ void Timer::Refresh(void)
 			TCNT1	=	0;
 
 		break;
-		case T3:
-
-			TCCR2B	= 	uScale;
-
-			OCR2A	=	uCount;
-			OCR2B	=	uPrev;
-
-			TCNT2	=	0;
-
-		break;
 	}
 
 	sei();
@@ -174,9 +142,6 @@ bool Timer::Active(void) const
 
 		case T2:
 			return TIMSK1;
-
-		case T3:
-			return TIMSK2;
 
 	}
 }

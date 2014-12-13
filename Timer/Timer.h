@@ -55,8 +55,7 @@
 	 */ public: enum TIMER
 	{
 		T1,	//!< Pierwszy licznik - zakres od 0 do 255.
-		T2,	//!< Drugi licznik - zakres od 0 do 65535.
-		T3	//!< Trzeci licznik - zakres od 0 do 255.
+		T2	//!< Drugi licznik - zakres od 0 do 65535.
 	};
 
 	/*! \brief Enumeracja dostępnych prescalerów.
