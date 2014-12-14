@@ -1,10 +1,3 @@
-/*! \file AVR-KuszkAPI.hpp
- *  \brief Plik pomocniczy.
- *
- * Plik służący jedynie w celu wygenerowania głównej strony dokumentacji.
- *
- */
-
 /*! \mainpage AVR KuszkAPI
 
     \section basic_sec Wstęp
