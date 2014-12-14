@@ -23,12 +23,12 @@
 ***********************************************************************/
 
 /*! \file Timer.h
- *  \brief Zawiera deklaracje klasy Switch.
+ *  \brief Zawiera deklaracje klasy Timer.
  *
  * Deklaracja zamieszczona w innym pliku pomaga uniknąć chaosu w organizacji kodu.
  *
  *  \file Timer.cpp
- *  \brief Zawiera implementacje klasy Switch.
+ *  \brief Zawiera implementacje klasy Timer.
  *
  * Implementacja każdej klasy w innym pliku pomaga uniknąć chaosu w organizacji kodu.
  *
@@ -64,6 +64,7 @@
 	 *
 	 */ public: enum SCALER
 	{
+		OFF,		//!< Zerowy prescaler - brak zliczania.
 		P1,		//!< Prescaler 1/1.
 		P8,		//!< Prescaler 1/8.
 		P64,		//!< Prescaler 1/64.
@@ -122,11 +123,12 @@
 		 */ void Resume(void);
 
 		/*! \brief Aktywuje nowe ustawienia.
+		 *  \return Powodzenie operacji.
 		 *  \see SetFreq(), SetTime(), SetPrefs().
 		 *
 		 * Wprowadza w życie nowe ustawienia licznika.
 		 *
-		 */ void Refresh(void);
+		 */ bool Refresh(void);
 
 		/*! \brief Sprawdza czy licznik jest aktywny.
 		 *  \return Stan licznika.

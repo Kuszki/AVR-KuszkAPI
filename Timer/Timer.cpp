@@ -102,8 +102,10 @@ void Timer::Resume(void)
 	sei();
 }
 
-void Timer::Refresh(void)
+bool Timer::Refresh(void)
 {
+	if (!uCount) return false;
+
 	cli();
 
 	switch (eTimer)
@@ -131,6 +133,8 @@ void Timer::Refresh(void)
 	}
 
 	sei();
+
+	return true;
 }
 
 bool Timer::Active(void) const
@@ -149,7 +153,7 @@ bool Timer::Active(void) const
 void Timer::SetFreq(unsigned long uFreqA, unsigned long uFreqB)
 {
 	unsigned puDivs[] = { 1, 8, 64, 256, 1024 };
-	unsigned puCaps[] = { 255, 65535, 255 };
+	unsigned puCaps[] = { 255, 65535 };
 
 	register unsigned long	uCap;
 	register unsigned short	i;
@@ -164,7 +168,7 @@ void Timer::SetFreq(unsigned long uFreqA, unsigned long uFreqB)
 void Timer::SetTime(unsigned long uTimeA, unsigned long uTimeB)
 {
 	unsigned puDivs[] = { 1, 8, 64, 256, 1024 };
-	unsigned puCaps[] = { 255, 65535, 255 };
+	unsigned puCaps[] = { 255, 65535 };
 
 	register unsigned long	uCap;
 	register unsigned short	i;
@@ -178,7 +182,7 @@ void Timer::SetTime(unsigned long uTimeA, unsigned long uTimeB)
 
 void Timer::SetPrefs(SCALER eScale, unsigned uCapA, unsigned uCapB)
 {
-	uScale	=	eScale + 1;
+	uScale	=	eScale;
 	uCount	=	uCapA;
 	uPrev	=	uCapB;
 }
