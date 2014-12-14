@@ -8,6 +8,8 @@ Wave::Wave(WAVE eNumber)
 {
 	uScale	=	0;
 	uCount	=	0;
+
+	pinMode(eWave, OUTPUT);
 }
 
 Wave::~Wave(void)

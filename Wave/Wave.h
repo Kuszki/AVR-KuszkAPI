@@ -51,8 +51,8 @@
 	 *
 	 */ public: enum WAVE
 	{
-		W1,	//!< Pierwszy generator - pin 11.
-		W2	//!< Drugi generator - pin 3.
+		W1	=	11,	//!< Pierwszy generator - pin 11.
+		W2	=	3	//!< Drugi generator - pin 3.
 	};
 
 	/*! \brief Enumeracja dostępnych częstotliwości.
