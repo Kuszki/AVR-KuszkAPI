@@ -3,14 +3,14 @@
 Parser::Parser(size_t sBytes, ONCOMPLETE fProc)
 : sSize(sBytes), fCallback(fProc)
 {
-	ptData = new char[sSize];
+	ptData	=	new char[sSize];
 
-	sPos = 0;
+	sPos		=	0;
 }
 
 Parser::~Parser(void)
 {
-	delete ptData;
+	delete [] ptData;
 }
 
 bool Parser::Check(Stream* sPort)
@@ -23,7 +23,7 @@ bool Parser::Check(Stream* sPort)
 		{
 			sPos = 0;
 
-			fCallback(ptData);
+			fCallback(ptData, sSize);
 
 			return true;
 		}
@@ -35,4 +35,18 @@ bool Parser::Check(Stream* sPort)
 void Parser::SetAction(ONCOMPLETE fProc)
 {
 	fCallback = fProc;
+}
+
+void Parser::SetSize(size_t sBytes)
+{
+	cli();
+
+	sSize	=	sBytes;
+	sPos		=	0;
+
+	delete [] ptData;
+
+	ptData = new char[sSize];
+
+	sei();
 }

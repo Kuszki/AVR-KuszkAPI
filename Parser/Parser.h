@@ -46,13 +46,12 @@
 
 	protected:
 
-		typedef void (*ONCOMPLETE)(void*); //!< Prototyp funkcji zwrotnej wywoływanej przy zdarzeniu odebrania pełnego pakietu danych.
-
-		const size_t sSize;		//!< Rozmiar ramki danych.
+		typedef void (*ONCOMPLETE)(void*, size_t); //!< Prototyp funkcji zwrotnej wywoływanej przy zdarzeniu odebrania pełnego pakietu danych.
 
 		ONCOMPLETE fCallback;	//!< Adres funkcji zwrotnej wywoływanej przy zmianie stanu przycisku.
 
 		size_t sPos;			//!< Aktualna liczba wczytanych bajtów.
+		size_t sSize;			//!< Rozmiar ramki danych.
 
 		char* ptData;			//!< Wskaźnik na odczytywane dane.
 
@@ -88,5 +87,12 @@
 		 * Zmienia dotychczasowe zachowanie po odebraniu pełnej ramki danych.
 		 *
 		 */ void SetAction(ONCOMPLETE fProc);
+
+		/*! \brief Ustala nowy rozmiar danych.
+		 *  \param [in] sBytes Rozmiar danych w bajtach.
+		 *
+		 * Zmienia dotychczasowe zachowanie przy odbieraniu danych.
+		 *
+		 */ void SetSize(size_t sBytes);
 
 };
