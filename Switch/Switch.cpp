@@ -1,12 +1,14 @@
 #include "Switch.h"
 
-Switch::Switch(short iPin, ONCHANGE fProc, MODE eMode)
-: iInput(iPin), fCallback(fProc), bLast(false), bOn(false)
+Switch::Switch(short iPin, ONCHANGE fProc, MODE eMode, short iType)
+: iInput(iPin), fCallback(fProc), bOn(false)
 {
 	iCount	=	(eMode == ON_RISING) ? 1 : 0;
 	iChange	=	(eMode == ON_SWITCH) ? 1 : 2;
 
-	pinMode(iInput, INPUT);
+	bLast	=	(iType == INPUT_PULLUP);
+
+	pinMode(iInput, iType);
 }
 
 bool Switch::Check(void)

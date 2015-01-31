@@ -74,11 +74,12 @@
 		 *  \param [in] iPin	Określna numer portu pod który podłączono przycisk.
 		 *  \param [in] fProc	Adres funkcji zwrotnej do wywołania przy zmianie stanu przycisku.
 		 *  \param [in] eMode	Sposób działania przycisku.
+		 *  \param [in] iType	Rodzaj połączenia przycisku (wbudowany pullup lub ręczny pullup).
 		 *  \see MODE, ONCHANGE.
 		 *
 		 * Inicjuje wszystkie pola obiektu i ustala wybrany port jako wejściowy.
 		 *
-		 */ Switch(short iPin, ONCHANGE fProc = NULL, MODE eMode = ON_SWITCH);
+		 */ Switch(short iPin, ONCHANGE fProc = NULL, MODE eMode = ON_SWITCH, short iType = INPUT_PULLUP);
 
 		/*! \brief Odświerza stan przycisku.
 		 *  \return Aktualny logiczny stan przycisku.
