@@ -40,14 +40,16 @@
  *
  * Pozwala na automatyczną obsługę przycisku cyfrowego bistabilnego i monostabilnego wraz z wyborem odpowiedniego zdarzenia i sposobem zachowania przycisku.
  *
- */ class Switch
+ */
+class Switch
 {
 
 	/*! \brief Sposób działania przycisku.
 	 *
 	 * Definiuje na jakie zbocze będzie reagował przycisk (przy jakim zboczu nastąpi zmiana jego stanu).
 	 *
-	 */ public: enum MODE
+	 */
+	public: enum MODE
 	{
 		ON_SWITCH,	//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane ze zmianą fizyczną przycisku.
 		ON_RISING,	//!< Oznacza, że zdarzenie zmiany stanu będzie powiązane z narastaniem zbocza sygnału.
@@ -79,7 +81,8 @@
 		 *
 		 * Inicjuje wszystkie pola obiektu i ustala wybrany port jako wejściowy.
 		 *
-		 */ Switch(short iPin, ONCHANGE fProc = NULL, MODE eMode = ON_SWITCH, short iType = INPUT_PULLUP);
+		 */
+		Switch(short iPin, ONCHANGE fProc = NULL, MODE eMode = ON_SWITCH, short iType = INPUT_PULLUP);
 
 		/*! \brief Odświerza stan przycisku.
 		 *  \return Aktualny logiczny stan przycisku.
@@ -87,21 +90,24 @@
 		 *
 		 * Sprawdza fizyczne połorzenie przycisku i odświerza jego stan.
 		 *
-		 */ bool Check(void);
+		 */
+		bool Check(void);
 
 		/*! \brief Włącza przełącznik.
 		 *  \note Po użyciu na przełączniku o stabilnym stanie zmienia logiczne położenia przycisku.
 		 *
 		 * Symuluje włączenie przełącznka wraz z wywołaniem funkcji zwrotnej.
 		 *
-		 */ void On(void);
+		 */
+		void On(void);
 
 		/*! \brief Wyłącza przełącznik.
 		 *  \note Po użyciu na przełączniku o stabilnym stanie zmienia logiczne położenia przycisku.
 		 *
 		 * Symuluje wyłączenie przełącznka wraz z wywołaniem funkcji zwrotnej.
 		 *
-		 */ void Off(void);
+		 */
+		void Off(void);
 
 		/*! \brief Ustala nowe zdarzenie zmiany stanu.
 		 *  \param [in] fProc Adres funkcji zwrotnej.
@@ -109,7 +115,8 @@
 		 *
 		 * Zmienia dotychczasowe działanie przycisku poprzez zdefiniowanie nowej funkcji zwrotnej.
 		 *
-		 */ void SetAction(ONCHANGE fProc);
+		 */
+		void SetAction(ONCHANGE fProc);
 
 		/*! \brief Ustala nowy sposób działania przycisku.
 		 *  \param [in] eMode Sposób działania.
@@ -117,7 +124,8 @@
 		 *
 		 * Zmienia dotychczasowe działanie przycisku poprzez zdefiniowanie nowego sposobu działania.
 		 *
-		 */ void SetMode(MODE eMode);
+		 */
+		void SetMode(MODE eMode);
 
 		/*! \brief Ustala stan przycisku.
 		 *  \param [in] bState Nowy stan przycisku.
@@ -125,6 +133,7 @@
 		 *
 		 * Zmienia dotychczasowy stan przycisku bez wywołania funkcji zwrotnej.
 		 *
-		 */ void SetState(bool bState);
+		 */
+		void SetState(bool bState);
 
 };

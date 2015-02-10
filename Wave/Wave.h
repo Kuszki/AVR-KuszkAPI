@@ -42,14 +42,16 @@
  *
  * Klasa umożliwia automatyczne utworzenie generatora sygnału prostokątnego o podanym wypełnieniu i częstotliwości.
  *
- */ class Wave
+ */
+class Wave
 {
 
 	/*! \brief Enumeracja dostępnych generatorów.
 	 *
 	 * Określa numer generatora z którego chcemy skorzystać.
 	 *
-	 */ public: enum WAVE
+	 */
+	public: enum WAVE
 	{
 		W1	=	11,	//!< Pierwszy generator - pin 11.
 		W2	=	3	//!< Drugi generator - pin 3.
@@ -59,7 +61,8 @@
 	 *
 	 * Określa częstotliwość przebiegu z której korzystamy.
 	 *
-	 */ public: enum FREQ
+	 */
+	public: enum FREQ
 	{
 		OFF,			//!< Zerowa częstotliwość - brak generacji.
 		F62500,		//!< Częstotliwość 62500 Hz.
@@ -92,32 +95,37 @@
 		 *
 		 * Inicjuje wszystkie pola obiektu na zero.
 		 *
-		 */ Wave(WAVE eNumber);
+		 */
+		Wave(WAVE eNumber);
 
 		/*! \brief Destruktor obiektu.
 		 *
 		 * Zatrzymuje bierzący generator, nie zeruje jednak jego stanu.
 		 *
-		 */ ~Wave(void);
+		 */
+		~Wave(void);
 
 		/*! \brief Aktywuje generator.
 		 *  \return Powodzenie operacji.
 		 *
 		 * Sprawdza poprawność danych i aktywuje generator. Gdy operacja powiedzie się zwraca wartość true, w przeciwnym wypadku zwraca false.
 		 *
-		 */ bool Start(void);
+		 */
+		bool Start(void);
 
 		/*! \brief Wyłącza generator.
 		 *
 		 * Wyłącza aktywny generator bez resetowania ustawień. Aby wznowić działanie generatora bez potrzeby obliczania parametrów i ustalania flag użyj metody Resume().
 		 *
-		 */ void Stop(void);
+		 */
+		void Stop(void);
 
 		/*! \brief Wznawia generator.
 		 *
 		 * Przywraca pracę wybranego generatora bez potrzeby obliczania na nowo jego parametrów.
 		 *
-		 */ void Resume(void);
+		 */
+		void Resume(void);
 
 		/*! \brief Aktywuje nowe ustawienia.
 		 *  \return Powodzenie operacji.
@@ -125,21 +133,24 @@
 		 *
 		 * Wprowadza w życie nowe ustawienia generatora.
 		 *
-		 */ bool Refresh(void);
+		 */
+		bool Refresh(void);
 
 		/*! \brief Sprawdza czy generator jest aktywny.
 		 *  \return Stan generatora.
 		 *
 		 * Sprawdza czy dany generator jest aktywny. Zwraca true gdy czasomierz działa, lub false gdy jest wyłączony.
 		 *
-		 */ bool Active(void) const;
+		 */
+		bool Active(void) const;
 
 		/*! \brief Ustawia generator.
 		 *  \param [in] uWidth Wypełnienie przebiegu (od 0 do 255)..
 		 *
 		 * Ustala wypełnienie generowanego przebiegu. Nie zmienia jednak aktualnej pracy generatora - aby tego dokonać wywołaj ponownie metodę Start() lub Refresh().
 		 *
-		 */ void SetWidth(unsigned char uWidth);
+		 */
+		void SetWidth(unsigned char uWidth);
 
 		/*! \brief Ustawia generator.
 		 *  \param [in] eFreq Częstotliwość przebiegu w hercach (Hz).
@@ -147,6 +158,7 @@
 		 *
 		 * Ustala odpowiednie parametry generatorów potrzebne do aktywowania ich na podstawie podanej częstotliwości. Nie zmienia jednak aktualnej pracy generatora - aby tego dokonać wywołaj ponownie metodę Start() lub Refresh().
 		 *
-		 */ static void SetFreq(FREQ eFreq);
+		 */
+		static void SetFreq(FREQ eFreq);
 
 };

@@ -40,7 +40,8 @@
  *
  * Pozwala na łatwą obsługę diody LED.
  *
- */ class Diode
+ */
+class Diode
 {
 
 	protected:
@@ -55,25 +56,29 @@
 		 *
 		 * Inicjuje wszystkie pola obiektu i ustala wybrany stan.
 		 *
-		 */ Diode(short iPin, bool bState = LOW);
+		 */
+		Diode(short iPin, bool bState = LOW);
 
 		/*! \brief Destruktor obiektu.
 		 *
 		 * Wyłącza diodę i ustawia jej pin na wejściowy.
 		 *
-		 */ ~Diode(void);
+		 */
+		~Diode(void);
 
 		/*! \brief Włącza diodę.
 		 *
 		 * Ustala napięcie na wyjściu w stan wysoki.
 		 *
-		 */ void On(void);
+		 */
+		void On(void);
 
 		/*! \brief Wyłącza diodę.
 		 *
 		 * Ustala napięcie na wyjściu w stan niski.
 		 *
-		 */ void Off(void);
+		 */
+		void Off(void);
 
 		/*! \brief Ustala stan diody.
 		 *  \param [in] bState Nowy stan diody.
@@ -81,6 +86,7 @@
 		 *
 		 * Zmienia dotychczasowy stan wyjścia pod które podłączona jest dioda.
 		 *
-		 */ void SetState(bool bState);
+		 */
+		void SetState(bool bState);
 
 };

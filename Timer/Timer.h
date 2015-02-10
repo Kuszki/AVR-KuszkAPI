@@ -45,14 +45,16 @@
  *
  * Aby obsłużyć główne zdarzenie zdefiniuj w programie przerwanie TIMERX_COMPA_vect, gdzie X to numer licznika (0, 1 lub 2). W celu obsłurzenie przerwania pomocniczego adefiniuj przerwanie TIMERX_COMPB_vect.
  *
- */ class Timer
+ */
+class Timer
 {
 
 	/*! \brief Enumeracja dostępnych liczników.
 	 *
 	 * Określa numer licznika z którego chcemy skorzystać.
 	 *
-	 */ public: enum TIMER
+	 */
+	public: enum TIMER
 	{
 		T1,	//!< Pierwszy licznik - zakres od 0 do 255.
 		T2	//!< Drugi licznik - zakres od 0 do 65535.
@@ -62,7 +64,8 @@
 	 *
 	 * Określa prescaler z którego korzystamy.
 	 *
-	 */ public: enum SCALER
+	 */
+	public: enum SCALER
 	{
 		OFF,		//!< Zerowy prescaler - brak zliczania.
 		P1,		//!< Prescaler 1/1.
@@ -89,38 +92,44 @@
 		 *
 		 * Inicjuje wszystkie pola obiektu na zero.
 		 *
-		 */ Timer(TIMER eNumber);
+		 */
+		Timer(TIMER eNumber);
 
 		/*! \brief Destruktor obiektu.
 		 *
 		 * Zatrzymuje bierzący licznik, nie zeruje jednak jego stanu.
 		 *
-		 */ ~Timer(void);
+		 */
+		~Timer(void);
 
 		/*! \brief Aktywuje licznik.
 		 *  \return Powodzenie operacji.
 		 *
 		 * Sprawdza poprawność danych i aktywuje licznik. Gdy operacja powiedzie się zwraca wartość true, w przeciwnym wypadku zwraca false.
 		 *
-		 */ bool Start(void);
+		 */
+		bool Start(void);
 
 		/*! \brief Wyłącza licznik.
 		 *
 		 * Wyłącza aktywny licznik bez resetowania jego pozycji. Aby wznowić działanie licznika bez potrzeby obliczania parametrów i ustalania flag użyj metody Resume().
 		 *
-		 */ void Stop(void);
+		 */
+		void Stop(void);
 
 		/*! \brief Zeruje licznik i restartuje pomiar.
 		 *
 		 * Powoduje, że cykl zliczania zaczyna się od nowa.
 		 *
-		 */ void Reset(void);
+		 */
+		void Reset(void);
 
 		/*! \brief Wznawia licznik.
 		 *
 		 * Przywraca pracę wybranego licznika bez potrzeby obliczania na nowo jego parametrów.
 		 *
-		 */ void Resume(void);
+		 */
+		void Resume(void);
 
 		/*! \brief Aktywuje nowe ustawienia.
 		 *  \return Powodzenie operacji.
@@ -128,14 +137,16 @@
 		 *
 		 * Wprowadza w życie nowe ustawienia licznika.
 		 *
-		 */ bool Refresh(void);
+		 */
+		bool Refresh(void);
 
 		/*! \brief Sprawdza czy licznik jest aktywny.
 		 *  \return Stan licznika.
 		 *
 		 * Sprawdza czy dany licznik jest aktywny. Zwraca true gdy czasomierz działa, lub false gdy jest wyłączony.
 		 *
-		 */ bool Active(void) const;
+		 */
+		bool Active(void) const;
 
 		/*! \brief Ustawia licznik.
 		 *  \param [in] uFreqA	Częstotliwość wyzwalania w hercach (Hz).
@@ -144,7 +155,8 @@
 		 *
 		 * Ustala odpowiednie parametry licznika potrzebne do aktywowania go na podstawie podanej częstotliwości wyzwalania zdarzenia. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start() lub Refresh().
 		 *
-		 */ void SetFreq(unsigned long uFreqA, unsigned long uFreqB = 0);
+		 */
+		void SetFreq(unsigned long uFreqA, unsigned long uFreqB = 0);
 
 		/*! \brief Ustawia licznik.
 		 *  \param [in] uTimeA	Okres wyzwalania zdarzenia w mikrosekundach (us).
@@ -152,7 +164,8 @@
 		 *
 		 * Ustala odpowiednie parametry licznika potrzebne do aktywowania go na podstawie podanego czasu. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start() lub Refresh().
 		 *
-		 */ void SetTime(unsigned long uTimeA, unsigned long uTimeB = 0);
+		 */
+		void SetTime(unsigned long uTimeA, unsigned long uTimeB = 0);
 
 		/*! \brief Ustawia licznik.
 		 *  \param [in] eScale	Wybrany prescaler.
@@ -163,6 +176,7 @@
 		 *
 		 * Ustala ręcznie odpowiednie parametry licznika potrzebne do aktywowania go. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start().
 		 *
-		 */ void SetPrefs(SCALER eScale, unsigned uCapA, unsigned uCapB = 0);
+		 */
+		void SetPrefs(SCALER eScale, unsigned uCapA, unsigned uCapB = 0);
 
 };

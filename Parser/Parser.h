@@ -41,7 +41,8 @@
  *
  * Klasa umożliwia pobieranie z dowolnego strumienia danych o określonej wielkości i przekazywanie ich po pobraniu do wybranej funkcji zwrotnej.
  *
- */ class Parser
+ */
+class Parser
 {
 
 	protected:
@@ -63,13 +64,15 @@
 		 *
 		 * Inicjuje wszystkie pola obiektu i alokuje bufor na ramkę danych.
 		 *
-		 */ Parser(size_t sBytes, ONCOMPLETE fProc);
+		 */
+		Parser(size_t sBytes, ONCOMPLETE fProc);
 
 		/*! \brief Destruktor obiektu.
 		 *
 		 * Zwalnia pamięć użytą na ramkę danych.
 		 *
-		 */ ~Parser(void);
+		 */
+		~Parser(void);
 
 		/*! \brief Usiłuje wczytać kolejną porcję danych.
 		 *  \param [in] sPort Wskaźnik na obiekt strumienia z którego mają zostać pobrane dane.
@@ -78,7 +81,8 @@
 		 *
 		 * Sprawdza czy dostępne są dane do odczytu i zapisuje je do bufora ramki. Jeśli odczyt zapełnił cały bufor ramki metoda zwróci wartość 'true'. W przeciwnym wypadku zwracaną wartością będzie 'false'. Po odebraniu danych automatycznie wywołana zostanie zadana funkcja zwrotna.
 		 *
-		 */ bool Check(Stream* sPort);
+		 */
+		bool Check(Stream* sPort);
 
 		/*! \brief Ustala nową funkcję zwrotną.
 		 *  \param [in] fProc Funkcja zwrotna.
@@ -86,13 +90,15 @@
 		 *
 		 * Zmienia dotychczasowe zachowanie po odebraniu pełnej ramki danych.
 		 *
-		 */ void SetAction(ONCOMPLETE fProc);
+		 */
+		void SetAction(ONCOMPLETE fProc);
 
 		/*! \brief Ustala nowy rozmiar danych.
 		 *  \param [in] sBytes Rozmiar danych w bajtach.
 		 *
 		 * Zmienia dotychczasowe zachowanie przy odbieraniu danych.
 		 *
-		 */ void SetSize(size_t sBytes);
+		 */
+		void SetSize(size_t sBytes);
 
 };
