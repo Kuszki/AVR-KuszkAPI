@@ -34,6 +34,9 @@
  *
  */
 
+#ifndef _AVR_KUSZKAPI_PARSER_H
+#define _AVR_KUSZKAPI_PARSER_H
+
 #include <Arduino.h>
 
 /*! \brief Obsługa połączeń przychodzących
@@ -102,3 +105,5 @@ class Parser
 		void SetSize(size_t sBytes);
 
 };
+
+#endif

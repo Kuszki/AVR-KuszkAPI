@@ -1,19 +1,19 @@
 #include "Switch.h"
 
 Switch::Switch(short iPin, ONCHANGE fProc, MODE eMode, short iType)
-: iInput(iPin), fCallback(fProc), bOn(false)
+: INPUT(iPin), fCallback(fProc), bOn(false)
 {
 	iCount	=	(eMode == ON_RISING) ? 1 : 0;
 	iChange	=	(eMode == ON_SWITCH) ? 1 : 2;
 
 	bLast	=	(iType == INPUT_PULLUP);
 
-	pinMode(iInput, iType);
+	pinMode(INPUT, iType);
 }
 
 bool Switch::Check(void)
 {
-	register bool bNow = digitalRead(iInput);
+	register bool bNow = digitalRead(INPUT);
 
 	if (bLast != bNow) bLast = bNow, iCount++;
 

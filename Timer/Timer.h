@@ -34,6 +34,9 @@
  *
  */
 
+#ifndef _AVR_KUSZKAPI_TIMER_H
+#define _AVR_KUSZKAPI_TIMER_H
+
 #include <Arduino.h>
 
 /*! \brief Obsługa przerwań licznika czasu.
@@ -77,7 +80,7 @@ class Timer
 
 	protected:
 
-		const TIMER eTimer;		//!< Stały indeks używanego licznika.
+		const TIMER ID;		//!< Stały indeks używanego licznika.
 
 		unsigned char uScale;	//!< Aktualnie używany prescaler.
 
@@ -180,3 +183,5 @@ class Timer
 		void SetPrefs(SCALER eScale, unsigned uCapA, unsigned uCapB = 0);
 
 };
+
+#endif

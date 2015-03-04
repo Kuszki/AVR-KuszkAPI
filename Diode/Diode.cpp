@@ -1,29 +1,29 @@
 #include "Diode.h"
 
 Diode::Diode(short iPin, bool bState)
-: iPort(iPin)
+: PORT(iPin)
 {
-	pinMode(iPort, OUTPUT);
+	pinMode(PORT, OUTPUT);
 
-	digitalWrite(iPort, bState);
+	digitalWrite(PORT, bState);
 }
 
 Diode::~Diode(void)
 {
-	pinMode(iPort, INPUT);
+	pinMode(PORT, INPUT);
 }
 
 void Diode::On(void)
 {
-	digitalWrite(iPort, true);
+	digitalWrite(PORT, true);
 }
 
 void Diode::Off(void)
 {
-	digitalWrite(iPort, false);
+	digitalWrite(PORT, false);
 }
 
 void Diode::SetState(bool bState)
 {
-	digitalWrite(iPort, bState);
+	digitalWrite(PORT, bState);
 }

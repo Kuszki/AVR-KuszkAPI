@@ -34,6 +34,9 @@
  *
  */
 
+#ifndef _AVR_KUSZKAPI_SWITCH_H
+#define _AVR_KUSZKAPI_SWITCH_H
+
 #include <Arduino.h>
 
 /*! \brief Przycisk "włącz/wyłącz".
@@ -60,7 +63,7 @@ class Switch
 
 		typedef void (*ONCHANGE)(bool); //!< Prototyp funkcji zwrotnej wywoływanej przy zdarzeniu przycisku.
 
-		const short iInput;	//!< Numer pinu pod który podłączono przycisk.
+		const short INPUT;	//!< Numer pinu pod który podłączono przycisk.
 
 		ONCHANGE fCallback;	//!< Adres funkcji zwrotnej wywoływanej przy zmianie stanu przycisku.
 
@@ -137,3 +140,5 @@ class Switch
 		void SetState(bool bState);
 
 };
+
+#endif

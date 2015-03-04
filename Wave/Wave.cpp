@@ -4,12 +4,12 @@ unsigned char Wave::uScale	=	0;
 unsigned char Wave::uMode	=	0;
 
 Wave::Wave(WAVE eNumber)
-: eWave(eNumber)
+: ID(eNumber)
 {
 	uScale	=	0;
 	uCount	=	0;
 
-	pinMode(eWave, OUTPUT);
+	pinMode(ID, OUTPUT);
 }
 
 Wave::~Wave(void)
@@ -26,7 +26,7 @@ bool Wave::Start(void)
 	TCCR2A	=	uMode | (TCCR2A & 128) | (TCCR2A & 32);
 	TCCR2B	=	uScale;
 
-	switch (eWave)
+	switch (ID)
 	{
 		case W1:
 
@@ -53,7 +53,7 @@ void Wave::Stop(void)
 {
 	cli();
 
-	switch (eWave)
+	switch (ID)
 	{
 		case W1:
 			TCCR2A	&=	~128;
@@ -70,7 +70,7 @@ void Wave::Resume(void)
 {
 	cli();
 
-	switch (eWave)
+	switch (ID)
 	{
 		case W1:
 			TCCR2A	|=	128;
@@ -92,7 +92,7 @@ bool Wave::Refresh(void)
 	TCCR2A	=	uMode | (TCCR2A & 128) | (TCCR2A & 32);
 	TCCR2B	=	uScale;
 
-	switch (eWave)
+	switch (ID)
 	{
 		case W1:
 
@@ -113,7 +113,7 @@ bool Wave::Refresh(void)
 
 bool Wave::Active(void) const
 {
-	switch (eWave)
+	switch (ID)
 	{
 		case W1:
 			return (TCCR2A & 128) && TCCR2B;

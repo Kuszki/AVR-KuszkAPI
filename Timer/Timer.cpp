@@ -1,7 +1,7 @@
 #include "Timer.h"
 
 Timer::Timer(TIMER eNumber)
-: eTimer(eNumber)
+: ID(eNumber)
 {
 	uScale	=	0;
 	uCount	=	0;
@@ -19,7 +19,7 @@ bool Timer::Start(void)
 
 	cli();
 
-	switch (eTimer)
+	switch (ID)
 	{
 		case T1:
 
@@ -59,7 +59,7 @@ void Timer::Stop(void)
 {
 	cli();
 
-	switch (eTimer)
+	switch (ID)
 	{
 		case T1:
 			TIMSK0 = 0;
@@ -74,7 +74,7 @@ void Timer::Stop(void)
 
 void Timer::Reset(void)
 {
-	switch (eTimer)
+	switch (ID)
 	{
 		case T1:
 			TCNT0 = 0;
@@ -89,7 +89,7 @@ void Timer::Resume(void)
 {
 	cli();
 
-	switch (eTimer)
+	switch (ID)
 	{
 		case T1:
 			TIMSK0 = OCR0B ? 6 : 2;
@@ -108,7 +108,7 @@ bool Timer::Refresh(void)
 
 	cli();
 
-	switch (eTimer)
+	switch (ID)
 	{
 		case T1:
 
@@ -139,7 +139,7 @@ bool Timer::Refresh(void)
 
 bool Timer::Active(void) const
 {
-	switch (eTimer)
+	switch (ID)
 	{
 		case T1:
 			return TIMSK0;
@@ -158,9 +158,9 @@ void Timer::SetFreq(unsigned long uFreqA, unsigned long uFreqB)
 	register unsigned long	uCap;
 	register unsigned short	i;
 
-	for (i = 0; i < 5; i++) if ((uCap = (F_CPU / puDivs[i]) / uFreqA - 1) < puCaps[eTimer]) break;
+	for (i = 0; i < 5; i++) if ((uCap = (F_CPU / puDivs[i]) / uFreqA - 1) < puCaps[ID]) break;
 
-	uCount	=	(uCap > puCaps[eTimer]) ? 0 : uCap;
+	uCount	=	(uCap > puCaps[ID]) ? 0 : uCap;
 	uPrev	=	(uFreqB && uCount) ? (F_CPU / puDivs[i]) / uFreqB - 1 : 0;
 	uScale	=	i + 1;
 }
@@ -173,9 +173,9 @@ void Timer::SetTime(unsigned long uTimeA, unsigned long uTimeB)
 	register unsigned long	uCap;
 	register unsigned short	i;
 
-	for (i = 0; i < 5; i++) if ((uCap = (F_CPU / 1000000) * (uTimeA / puDivs[i]) - 1) < puCaps[eTimer]) break;
+	for (i = 0; i < 5; i++) if ((uCap = (F_CPU / 1000000) * (uTimeA / puDivs[i]) - 1) < puCaps[ID]) break;
 
-	uCount	=	(uCap > puCaps[eTimer]) ? 0 : uCap;
+	uCount	=	(uCap > puCaps[ID]) ? 0 : uCap;
 	uPrev	=	(uTimeB && uCount) ? (F_CPU / 1000000) * (uTimeB / puDivs[i]) - 1 : 0;
 	uScale	=	i + 1;
 }

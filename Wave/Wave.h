@@ -34,6 +34,9 @@
  *
  */
 
+#ifndef _AVR_KUSZKAPI_WAVE_H
+#define _AVR_KUSZKAPI_WAVE_H
+
 #include <Arduino.h>
 
 /*! \brief Obsługa generowania impulsów z modulacją wypełnienia.
@@ -83,7 +86,7 @@ class Wave
 		static unsigned char uScale;	//!< Aktualnie używany prescaler wybrany na podstwie trybu pracy i częstotliwości.
 		static unsigned char uMode;	//!< Określa tryb pracy generatorów na podstawie wybranej częstotliwości.
 
-		const WAVE eWave;			//!< Stały indeks używanego generatora.
+		const WAVE ID;			//!< Stały indeks używanego generatora.
 
 		unsigned char uCount;		//!< Liczba impulsów do zliczenia.
 
@@ -162,3 +165,5 @@ class Wave
 		static void SetFreq(FREQ eFreq);
 
 };
+
+#endif

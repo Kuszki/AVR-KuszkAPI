@@ -34,6 +34,9 @@
  *
  */
 
+#ifndef _AVR_KUSZKAPI_DIODE_H
+#define _AVR_KUSZKAPI_DIODE_H
+
 #include <Arduino.h>
 
 /*! \brief Reprezentacja diody LED.
@@ -46,7 +49,7 @@ class Diode
 
 	protected:
 
-		const short iPort;	//!< Numer pinu pod który podłączono diodę.
+		const short PORT;	//!< Numer pinu pod który podłączono diodę.
 
 	public:
 
@@ -90,3 +93,5 @@ class Diode
 		void SetState(bool bState);
 
 };
+
+#endif
