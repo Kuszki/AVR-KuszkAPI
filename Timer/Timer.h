@@ -59,8 +59,8 @@ class Timer
 	 */
 	public: enum TIMER
 	{
-		T1,	//!< Pierwszy licznik - zakres od 0 do 255.
-		T2	//!< Drugi licznik - zakres od 0 do 65535.
+		T1,	//!< Pierwszy licznik - zakres od 0 do 255; przerwanie TIMER0_COMPA_vect i TIMER0_COMPB_vect.
+		T2	//!< Drugi licznik - zakres od 0 do 65535; przerwanie TIMER1_COMPA_vect i TIMER1_COMPB_vect.
 	};
 
 	/*! \brief Enumeracja dostępnych prescalerów.
