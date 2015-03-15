@@ -7,7 +7,7 @@ volatile Comport::Buffer* Comport::bIN	= &bRecv;
 volatile Comport::Buffer* Comport::bOUT	= &bSend;
 
 Comport::Comport(unsigned uRate)
-: sPort(0)
+: sPos(0)
 {
 	uRate = (F_CPU / 8 / uRate - 1) / 2;
 
