@@ -168,6 +168,11 @@ class Comport
 		 */
 		bool Wait(unsigned uTime = 0) const;
 
+		Comport& operator << (char cChar);
+		Comport& operator << (const char* pcData);
+
+		Comport& operator >> (char& cChar);
+
 };
 
 #endif
