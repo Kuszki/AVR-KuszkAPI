@@ -7,6 +7,7 @@ volatile Comport::Buffer* Comport::bIN	= &bRecv;
 volatile Comport::Buffer* Comport::bOUT	= &bSend;
 
 Comport::Comport(unsigned uRate)
+: sPort(0)
 {
 	uRate = (F_CPU / 8 / uRate - 1) / 2;
 
@@ -79,8 +80,6 @@ char Comport::Recv(void)
 
 bool Comport::Recv(void* pvData, size_t sBytes)
 {
-	static size_t sPos = 0;
-
 	register char* ptData = (char*) pvData;
 
 	while (bIN->uHead != bIN->uTail)

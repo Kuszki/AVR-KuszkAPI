@@ -70,6 +70,8 @@ class Comport
 		volatile static Buffer* bIN;	//!< Bufor danych wejściowych.
 		volatile static Buffer* bOUT;	//!< Bufor danych wyjściowych.
 
+		size_t sPos;
+
 	public:
 
 		/*! \brief Konstruktor obiektu.
