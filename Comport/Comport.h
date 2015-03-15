@@ -156,6 +156,16 @@ class Comport
 		 */
 		bool Ready(void) const;
 
+		/*! \brief Oczekiwanie na dane.
+		 *  \param [in] uTime Czas oczekiwania.
+		 *  \return Stan bufora wejścia.
+		 *  \todo Pomiar czasu. Tymaczasowo działa na nieskończony czas.
+		 *
+		 * Czeka określoną ilość milisekund na zdarzenie odbioru danych. Gdy zdarzenie w tym czasie nastąpi zwraca wartość prawda.
+		 *
+		 */
+		bool Wait(unsigned uTime = 0) const;
+
 };
 
 #endif

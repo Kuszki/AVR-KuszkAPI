@@ -46,12 +46,12 @@ void Comport::Send(char cChar)
 {
 	register unsigned short uHead = (bOUT->uHead + 1) & (BUFF_SIZE - 1);
 
-    while (uHead == bOUT->uTail) {}
+	while (uHead == bOUT->uTail);
 
-    bOUT->pcBuff[uHead] = cChar;
-    bOUT->uHead = uHead;
+	bOUT->pcBuff[uHead] = cChar;
+	bOUT->uHead = uHead;
 
-    UCSR0B |= (1 << UDRE0);
+	UCSR0B |= (1 << UDRE0);
 }
 
 void Comport::Send(const char* pcData)
@@ -70,7 +70,7 @@ void Comport::Send(const void* pvData, size_t sBytes)
 
 char Comport::Recv(void)
 {
-    if (bIN->uHead == bIN->uTail) return 0;
+    while (bIN->uHead == bIN->uTail);
 
     bIN->uTail = (bIN->uTail + 1) & (BUFF_SIZE - 1);
 
@@ -103,6 +103,13 @@ bool Comport::Recv(void* pvData, size_t sBytes)
 bool Comport::Ready(void) const
 {
 	return (bIN->uHead != bIN->uTail);
+}
+
+bool Comport::Wait(unsigned uTime) const
+{
+	while (bIN->uHead == bIN->uTail);
+
+	return true;
 }
 
 ISR(USART_RX_vect)
