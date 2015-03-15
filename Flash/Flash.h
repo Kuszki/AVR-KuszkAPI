@@ -39,9 +39,9 @@
 
 #include <Arduino.h>
 
-/*! \brief Reprezentacja diody LED.
+/*! \brief Model pamięci FLASH mikrokontrolera.
  *
- * Pozwala na łatwą obsługę diody LED.
+ * Pozwala na łatwy dostęp do pamięci FLASH.
  *
  */
 class Flash
