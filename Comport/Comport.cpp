@@ -111,6 +111,27 @@ bool Comport::Wait(unsigned uTime) const
 	return true;
 }
 
+Comport& Comport::operator << (char cChar)
+{
+	Send(cChar);
+
+	return *this;
+}
+
+Comport& Comport::operator << (const char* pcData)
+{
+	Send(pcData);
+
+	return *this;
+}
+
+Comport& Comport::operator >> (char& cChar)
+{
+	cChar = Recv();
+
+	return *this;
+}
+
 ISR(USART_RX_vect)
 {
 	register char cBuff = UDR0;
