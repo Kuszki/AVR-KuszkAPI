@@ -86,7 +86,7 @@ class Wave
 		static unsigned char uScale;	//!< Aktualnie używany prescaler wybrany na podstwie trybu pracy i częstotliwości.
 		static unsigned char uMode;	//!< Określa tryb pracy generatorów na podstawie wybranej częstotliwości.
 
-		const WAVE ID;			//!< Stały indeks używanego generatora.
+		const WAVE ID;				//!< Stały indeks używanego generatora.
 
 		unsigned char uCount;		//!< Liczba impulsów do zliczenia.
 

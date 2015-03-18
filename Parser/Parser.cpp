@@ -1,11 +1,9 @@
 #include "Parser.h"
 
 Parser::Parser(size_t sBytes, ONCOMPLETE fProc)
-: sSize(sBytes), fCallback(fProc)
+: sSize(sBytes), fCallback(fProc), sPos(0)
 {
-	ptData	=	new char[sSize];
-
-	sPos		=	0;
+	ptData = new char[sSize];
 }
 
 Parser::~Parser(void)

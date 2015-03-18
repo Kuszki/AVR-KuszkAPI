@@ -4,11 +4,8 @@ unsigned char Wave::uScale	=	0;
 unsigned char Wave::uMode	=	0;
 
 Wave::Wave(WAVE eNumber)
-: ID(eNumber)
+: ID(eNumber), uCount(0)
 {
-	uScale	=	0;
-	uCount	=	0;
-
 	pinMode(ID, OUTPUT);
 }
 

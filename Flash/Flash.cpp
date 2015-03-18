@@ -1,7 +1,8 @@
 #include "Flash.h"
 
 Flash::Flash(unsigned uStart)
-: uAdress(uStart) {}
+: uAdress(uStart)
+{}
 
 char Flash::Read(void)
 {

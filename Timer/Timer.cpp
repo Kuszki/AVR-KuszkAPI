@@ -1,12 +1,8 @@
 #include "Timer.h"
 
 Timer::Timer(TIMER eNumber)
-: ID(eNumber)
-{
-	uScale	=	0;
-	uCount	=	0;
-	uPrev	=	0;
-}
+: ID(eNumber), uScale(0), uCount(0), uPrev(0)
+{}
 
 Timer::~Timer(void)
 {
