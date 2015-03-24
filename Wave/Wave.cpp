@@ -18,8 +18,6 @@ bool Wave::Start(void)
 {
 	if (!uCount || !uScale || !uMode) return false;
 
-	cli();
-
 	TCCR2A	=	uMode | (TCCR2A & 128) | (TCCR2A & 32);
 	TCCR2B	=	uScale;
 
@@ -41,15 +39,11 @@ bool Wave::Start(void)
 		break;
 	}
 
-	sei();
-
 	return true;
 }
 
 void Wave::Stop(void)
 {
-	cli();
-
 	switch (ID)
 	{
 		case W1:
@@ -59,8 +53,6 @@ void Wave::Stop(void)
 			TCCR2A	&=	~32;
 		break;
 	}
-
-	sei();
 }
 
 void Wave::Resume(void)
@@ -84,8 +76,6 @@ bool Wave::Refresh(void)
 {
 	if (!uCount || !uScale || !uMode) return false;
 
-	cli();
-
 	TCCR2A	=	uMode | (TCCR2A & 128) | (TCCR2A & 32);
 	TCCR2B	=	uScale;
 
@@ -102,8 +92,6 @@ bool Wave::Refresh(void)
 
 		break;
 	}
-
-	sei();
 
 	return true;
 }
@@ -128,8 +116,8 @@ void Wave::SetWidth(unsigned char uWidth)
 
 void Wave::SetFreq(FREQ eFreq)
 {
-	unsigned char puDivs[]	=	{ 0, 1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 7 };
-	unsigned char puModes[]	=	{ 0, 3, 1, 3, 1, 3, 1, 1, 1, 1, 3, 1 };
+	const unsigned char PROGMEM puDivs[]	=	{ 0, 1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 7 };
+	const unsigned char PROGMEM puModes[]	=	{ 0, 3, 1, 3, 1, 3, 1, 1, 1, 1, 3, 1 };
 
 	uScale	=	puDivs[eFreq];
 	uMode	=	puModes[eFreq];

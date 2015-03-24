@@ -13,8 +13,6 @@ bool Timer::Start(void)
 {
 	if (!uCount) return false;
 
-	cli();
-
 	switch (ID)
 	{
 		case T1:
@@ -46,15 +44,11 @@ bool Timer::Start(void)
 		break;
 	}
 
-	sei();
-
 	return true;
 }
 
 void Timer::Stop(void)
 {
-	cli();
-
 	switch (ID)
 	{
 		case T1:
@@ -64,8 +58,6 @@ void Timer::Stop(void)
 			TIMSK1 = 0;
 		break;
 	}
-
-	sei();
 }
 
 void Timer::Reset(void)
@@ -83,8 +75,6 @@ void Timer::Reset(void)
 
 void Timer::Resume(void)
 {
-	cli();
-
 	switch (ID)
 	{
 		case T1:
@@ -94,15 +84,11 @@ void Timer::Resume(void)
 			TIMSK1 = OCR1B ? 6 : 2;
 		break;
 	}
-
-	sei();
 }
 
 bool Timer::Refresh(void)
 {
 	if (!uCount) return false;
-
-	cli();
 
 	switch (ID)
 	{
@@ -128,8 +114,6 @@ bool Timer::Refresh(void)
 		break;
 	}
 
-	sei();
-
 	return true;
 }
 
@@ -148,8 +132,8 @@ bool Timer::Active(void) const
 
 void Timer::SetFreq(unsigned long uFreqA, unsigned long uFreqB)
 {
-	unsigned puDivs[] = { 1, 8, 64, 256, 1024 };
-	unsigned puCaps[] = { 255, 65535 };
+	const unsigned PROGMEM puDivs[] = { 1, 8, 64, 256, 1024 };
+	const unsigned PROGMEM puCaps[] = { 255, 65535 };
 
 	register unsigned long	uCap;
 	register unsigned short	i;
@@ -163,8 +147,8 @@ void Timer::SetFreq(unsigned long uFreqA, unsigned long uFreqB)
 
 void Timer::SetTime(unsigned long uTimeA, unsigned long uTimeB)
 {
-	unsigned puDivs[] = { 1, 8, 64, 256, 1024 };
-	unsigned puCaps[] = { 255, 65535 };
+	const unsigned PROGMEM puDivs[] = { 1, 8, 64, 256, 1024 };
+	const unsigned PROGMEM puCaps[] = { 255, 65535 };
 
 	register unsigned long	uCap;
 	register unsigned short	i;
