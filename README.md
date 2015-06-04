@@ -1,12 +1,12 @@
-AVR KuszkAPI
+KALibs - Kuszki AVR Libs
 ==========
 
 Wstęp
 ----------
 
-Projekt jest zbiorem klas ułatwiających programowanie mikrokontrolerów w architekturze AVR z rodziny Arduino.
+Projekt jest zbiorem klas ułatwiających programowanie mikrokontrolerów w architekturze AVR.
 
-Jeśli znalazłeś błąd, masz jakieś propozycje lub uwagi, zgłoś to w <a target="_blank" href="https://github.com/Kuszki/AVR-KuszkAPI/issues">bugtrackerze</a> na GitHubie.
+Jeśli znalazłeś błąd, masz jakieś propozycje lub uwagi, zgłoś to w <a target="_blank" href="https://github.com/Kuszki/KALibs/issues">bugtrackerze</a> na GitHubie.
 
 Licencja
 ----------
@@ -21,7 +21,7 @@ Z pewnością wraz z niniejszym programem otrzymałeś też egzemplarz Powszechn
 Instalacja
 ----------
 
-Aby używać projektu należy rozpakować go do katalogu bibliotek uzytkownika programu Arduino i dołączyć do projektu dyrektywą `#inclide <nazwa_klasy.h>`, lub wybrać w IDE opcję "dodaj bibliotekę".
+Aby używać projektu należy rozpakować go w dowolne miejsce i dołączyć do projektu dyrektywą `#inclide <nazwa_klasy.hpp>`.
 
 
 Dokumentacja
