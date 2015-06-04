@@ -21,7 +21,7 @@ Z pewnością wraz z niniejszym programem otrzymałeś też egzemplarz Powszechn
 Instalacja
 ----------
 
-Aby używać projektu należy rozpakować go w dowolne miejsce i dołączyć do projektu dyrektywą `#inclide <nazwa_klasy.hpp>`.
+Aby używać projektu należy rozpakować go w dowolne miejsce i dołączyć do projektu dyrektywą `#include <nazwa_klasy.hpp>`.
 
 
 Dokumentacja
