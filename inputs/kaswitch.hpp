@@ -18,12 +18,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  **********************************************************************/
 
-/*! \file KAKASwitch.hpp
+/*! \file kaswitch.hpp
  *  \brief Zawiera deklaracje klasy KASwitch.
  *
  * Deklaracja zamieszczona w innym pliku pomaga uniknąć chaosu w organizacji kodu.
  *
- *  \file KAKASwitch.cpp
+ *  \file kaswitch.cpp
  *  \brief Zawiera implementacje klasy KASwitch.
  *
  * Implementacja każdej klasy w innym pliku pomaga uniknąć chaosu w organizacji kodu.
@@ -81,9 +81,11 @@ class KASwitch : public KAPin
 	public:
 
 		/*! \brief		Konstruktor obiektu.
+		 *  \param [in]	Port		ID portu.
+		 *  \param [in]	Mask		Maska bitowa.
 		 *  \param [in]	Proc		Adres funkcji zwrotnej do wywołania przy zmianie stanu przycisku.
 		 *  \param [in]	Event	Sposób działania przycisku.
-		 *  \param [in]	iType	Rodzaj połączenia przycisku (wbudowany pullup lub ręczny pullup).
+		 *  \param [in]	Mode		Rodzaj połączenia przycisku (wbudowany pullup lub ręczny pullup).
 		 *  \see			EVENT, ONCHANGE.
 		 *
 		 * Inicjuje wszystkie pola obiektu i ustala wybrany port jako wejściowy.

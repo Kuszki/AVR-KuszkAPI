@@ -42,7 +42,7 @@
 /*! \brief		Obsługa przerwań licznika czasu.
  *  \note			Przerwanie wybranego timera należy zaimplementować ręcznie.
  *  \note			Klasa działa także z innymi płytkami, nie tylko z Arduino.
- *  \bug			Po aktywacji licznika metodą Start() zdarza się, że pierwsze wyzwolenie nastąpi w nieokreślonym czasie. Takie działanie ma miejsce gdy ręcznie załączymy zliczanie w trakcie programu. Timer aktywowany na początku programu działa zwykle poprawnie. Bug dotyczy tylko pierwszego wyzwolenia. Zdarzenie odnotowano tylko dla licznika T2 - dla pozostałych liczników nie przeprowadzono testów.
+ *  \bug			Po aktywacji licznika metodą Start() zdarza się, że pierwsze wyzwolenie nastąpi w nieokreślonym czasie. Takie działanie ma miejsce gdy ręcznie załączymy zliczanie w trakcie programu. Timer aktywowany na początku programu działa zwykle poprawnie. Bug dotyczy tylko pierwszego wyzwolenia. Zdarzenie odnotowano tylko dla licznika T_2 - dla pozostałych liczników nie przeprowadzono testów.
  *
  * Klasa umożliwia automatyczne utworzenie przerwania wywoływanego z określoną częstotliowścią lub określonym czasem.
  *
@@ -59,8 +59,8 @@ class Timer
 	 */
 	public: enum TIMER
 	{
-		T1,	//!< Pierwszy licznik - zakres od 0 do 255; przerwanie TIMER0_COMPA_vect i TIMER0_COMPB_vect.
-		T2	//!< Drugi licznik - zakres od 0 do 65535; przerwanie TIMER1_COMPA_vect i TIMER1_COMPB_vect.
+		T_1,		//!< Pierwszy licznik - zakres od 0 do 255; przerwanie TIMER0_COMPA_vect i TIMER0_COMPB_vect.
+		T_2		//!< Drugi licznik - zakres od 0 do 65535; przerwanie TIMER1_COMPA_vect i TIMER1_COMPB_vect.
 	};
 
 	/*! \brief		Enumeracja dostępnych prescalerów.
@@ -71,11 +71,11 @@ class Timer
 	public: enum SCALER
 	{
 		OFF,		//!< Zerowy prescaler - brak zliczania.
-		P1,		//!< Prescaler 1/1.
-		P8,		//!< Prescaler 1/8.
-		P64,		//!< Prescaler 1/64.
-		P256,	//!< Prescaler 1/265.
-		P1024	//!< Prescaler 1/1024.
+		P_1,		//!< Prescaler 1/1.
+		P_8,		//!< Prescaler 1/8.
+		P_64,		//!< Prescaler 1/64.
+		P_256,	//!< Prescaler 1/265.
+		P_1024	//!< Prescaler 1/1024.
 	};
 
 	protected:

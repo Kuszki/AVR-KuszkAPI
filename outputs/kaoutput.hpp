@@ -23,14 +23,14 @@
 
 #include "../tools/kapin.hpp"
 
-/*! \file kaoutoput.hpp
+/*! \file kaoutput.hpp
  *  \brief Zawiera deklaracje klasy KAOutput.
  *
  * Deklaracja zamieszczona w innym pliku pomaga uniknąć chaosu w organizacji kodu.
  *
  */
 
-/*! \file kaoutoput.cpp
+/*! \file kaoutput.cpp
  *  \brief Zawiera implementacje klasy KAOutput.
  *
  * Implementacja każdej klasy w innym pliku pomaga uniknąć chaosu w organizacji kodu.

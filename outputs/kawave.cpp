@@ -8,12 +8,12 @@ Wave::Wave(WAVE Number)
 {
 	switch (ID)
 	{
-		case W1:
+		case W_1:
 
 			DDRB		|=	8;
 
 		break;
-		case W2:
+		case W_2:
 
 			DDRD		|=	4;
 
@@ -25,13 +25,13 @@ Wave::~Wave(void)
 {
 	switch (ID)
 	{
-		case W1:
+		case W_1:
 
 			TCCR2A	&=	~128;
 			DDRB		&=	~8;
 
 		break;
-		case W2:
+		case W_2:
 
 			TCCR2A	&=	~32;
 			DDRD		&=	~4;
@@ -49,14 +49,14 @@ bool Wave::Start(void)
 
 	switch (ID)
 	{
-		case W1:
+		case W_1:
 
 			TCCR2A	|=	128;
 
 			OCR2A	=	Count;
 
 		break;
-		case W2:
+		case W_2:
 
 			TCCR2A	|=	32;
 
@@ -74,10 +74,10 @@ void Wave::Stop(void)
 {
 	switch (ID)
 	{
-		case W1:
+		case W_1:
 			TCCR2A	&=	~128;
 		break;
-		case W2:
+		case W_2:
 			TCCR2A	&=	~32;
 		break;
 	}
@@ -87,10 +87,10 @@ void Wave::Resume(void)
 {
 	switch (ID)
 	{
-		case W1:
+		case W_1:
 			TCCR2A	|=	128;
 		break;
-		case W2:
+		case W_2:
 			TCCR2A	|=	32;
 		break;
 	}
@@ -107,12 +107,12 @@ bool Wave::Refresh(void)
 
 	switch (ID)
 	{
-		case W1:
+		case W_1:
 
 			OCR2A	=	Count;
 
 		break;
-		case W2:
+		case W_2:
 
 			OCR2B	=	Count;
 
@@ -128,10 +128,10 @@ bool Wave::Active(void) const
 {
 	switch (ID)
 	{
-		case W1:
+		case W_1:
 			return (TCCR2A & 128) && TCCR2B;
 
-		case W2:
+		case W_2:
 			return (TCCR2A & 32) && TCCR2B;
 
 	}

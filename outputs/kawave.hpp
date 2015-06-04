@@ -56,8 +56,8 @@ class Wave
 	 */
 	public: enum WAVE
 	{
-		W1	=	11,	//!< Pierwszy generator - pin 11.
-		W2	=	3	//!< Drugi generator - pin 3.
+		W_1	=	11,	//!< Pierwszy generator - pin 11.
+		W_2	=	3	//!< Drugi generator - pin 3.
 	};
 
 	/*! \brief Enumeracja dostępnych częstotliwości.
@@ -68,17 +68,17 @@ class Wave
 	public: enum FREQ
 	{
 		OFF,			//!< Zerowa częstotliwość - brak generacji.
-		F62500,		//!< Częstotliwość 62500 Hz.
-		F31400,		//!< Częstotliwość 31373 Hz.
-		F7800,		//!< Częstotliwość 7812,5 Hz.
-		F4000,		//!< Częstotliwość 3921,6 Hz.
-		F2000,		//!< Częstotliwość 1953,1 Hz.
-		F1000,		//!< Częstotliwość 980,39 Hz.
-		F500,		//!< Częstotliwość 490,20 Hz.
-		F250,		//!< Częstotliwość 245,10 Hz.
-		F120,		//!< Częstotliwość 122,55 Hz.
-		F60,			//!< Częstotliwość 61,035 Hz.
-		F30			//!< Częstotliwość 30,637 Hz.
+		F_62500,		//!< Częstotliwość 62500 Hz.
+		F_31400,		//!< Częstotliwość 31373 Hz.
+		F_7800,		//!< Częstotliwość 7812,5 Hz.
+		F_4000,		//!< Częstotliwość 3921,6 Hz.
+		F_2000,		//!< Częstotliwość 1953,1 Hz.
+		F_1000,		//!< Częstotliwość 980,39 Hz.
+		F_500,		//!< Częstotliwość 490,20 Hz.
+		F_250,		//!< Częstotliwość 245,10 Hz.
+		F_120,		//!< Częstotliwość 122,55 Hz.
+		F_60,		//!< Częstotliwość 61,035 Hz.
+		F_30			//!< Częstotliwość 30,637 Hz.
 	};
 
 	protected:
