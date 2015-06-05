@@ -46,10 +46,10 @@
  *
  * Klasa umożliwia automatyczne utworzenie przerwania wywoływanego z określoną częstotliowścią lub określonym czasem.
  *
- * Aby obsłużyć główne zdarzenie zdefiniuj w programie przerwanie TIMERX_COMPA_vect, gdzie X to numer licznika (0, 1 lub 2). W celu obsłurzenie przerwania pomocniczego adefiniuj przerwanie TIMERX_COMPB_vect.
+ * Aby obsłużyć główne zdarzenie zdefiniuj w programie przerwanie TIMERX_COMPA_vect, gdzie X to numer licznika (0 lub 1). W celu obsłurzenie przerwania pomocniczego adefiniuj przerwanie TIMERX_COMPB_vect.
  *
  */
-class Timer
+class KATimer
 {
 
 	/*! \brief		Enumeracja dostępnych liczników.
@@ -96,14 +96,14 @@ class Timer
 		 * Inicjuje wszystkie pola obiektu na zero.
 		 *
 		 */
-		Timer(TIMER Number);
+		KATimer(TIMER Number);
 
 		/*! \brief		Destruktor obiektu.
 		 *
 		 * Zatrzymuje bierzący licznik, nie zeruje jednak jego stanu.
 		 *
 		 */
-		~Timer(void);
+		~KATimer(void);
 
 		/*! \brief		Aktywuje licznik.
 		 *  \return		Powodzenie operacji.
@@ -171,16 +171,16 @@ class Timer
 		void SetTime(unsigned long TimeA, unsigned long TimeB = 0);
 
 		/*! \brief		Ustawia licznik.
-		 *  \param [in]	Scale	Wybrany prescaler.
-		 *  \param [in]	CapA	Wybrana pojemność zdarzenia.
-		 *  \param [in]	CapB	Pojemność pierwszego zdarzenia.
+		 *  \param [in]	Div		Wybrany prescaler.
+		 *  \param [in]	CapA		Wybrana pojemność zdarzenia.
+		 *  \param [in]	CapB		Pojemność pierwszego zdarzenia.
 		 *  \warning		Istotne jest by parametry były zgodne ze specyfikacją licznika. Nie będą one bowiem sprawdzane pod kątem poprawności szerokości licznika.
 		 *  \see			SCALER.
 		 *
 		 * Ustala ręcznie odpowiednie parametry licznika potrzebne do aktywowania go. Nie zmienia jednak aktualnej pracy licznika - aby tego dokonać wywołaj ponownie metodę Start().
 		 *
 		 */
-		void SetPrefs(SCALER Scale, unsigned CapA, unsigned CapB = 0);
+		void SetPrefs(SCALER Div, unsigned CapA, unsigned CapB = 0);
 
 };
 

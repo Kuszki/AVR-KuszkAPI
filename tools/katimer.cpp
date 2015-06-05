@@ -1,15 +1,15 @@
 #include "katimer.hpp"
 
-Timer::Timer(TIMER Number)
+KATimer::KATimer(TIMER Number)
 : ID(Number), Scale(0), Count(0), Prev(0)
 {}
 
-Timer::~Timer(void)
+KATimer::~KATimer(void)
 {
 	Stop();
 }
 
-bool Timer::Start(void)
+bool KATimer::Start(void)
 {
 	if (!Count) return false;
 
@@ -39,7 +39,7 @@ bool Timer::Start(void)
 
 			TIMSK1	=	OCR1B ? 6 : 2;
 
-			TCNT_1	=	0;
+			TCNT1	=	0;
 
 		break;
 	}
@@ -47,7 +47,7 @@ bool Timer::Start(void)
 	return true;
 }
 
-void Timer::Stop(void)
+void KATimer::Stop(void)
 {
 	switch (ID)
 	{
@@ -60,7 +60,7 @@ void Timer::Stop(void)
 	}
 }
 
-void Timer::Reset(void)
+void KATimer::Reset(void)
 {
 	switch (ID)
 	{
@@ -68,12 +68,12 @@ void Timer::Reset(void)
 			TCNT0 = 0;
 		break;
 		case T_2:
-			TCNT_1 = 0;
+			TCNT1 = 0;
 		break;
 	}
 }
 
-void Timer::Resume(void)
+void KATimer::Resume(void)
 {
 	switch (ID)
 	{
@@ -86,7 +86,7 @@ void Timer::Resume(void)
 	}
 }
 
-bool Timer::Refresh(void)
+bool KATimer::Refresh(void)
 {
 	if (!Count) return false;
 
@@ -109,7 +109,7 @@ bool Timer::Refresh(void)
 			OCR1A	=	Count;
 			OCR1B	=	Prev;
 
-			TCNT_1	=	0;
+			TCNT1	=	0;
 
 		break;
 	}
@@ -117,7 +117,7 @@ bool Timer::Refresh(void)
 	return true;
 }
 
-bool Timer::Active(void) const
+bool KATimer::Active(void) const
 {
 	switch (ID)
 	{
@@ -130,7 +130,7 @@ bool Timer::Active(void) const
 	}
 }
 
-void Timer::SetFreq(unsigned long FreqA, unsigned long FreqB)
+void KATimer::SetFreq(unsigned long FreqA, unsigned long FreqB)
 {
 	const unsigned PROGMEM Divs[] = { 1, 8, 64, 256, 1024 };
 	const unsigned PROGMEM Caps[] = { 255, 65535 };
@@ -145,7 +145,7 @@ void Timer::SetFreq(unsigned long FreqA, unsigned long FreqB)
 	Scale	=	i + 1;
 }
 
-void Timer::SetTime(unsigned long TimeA, unsigned long TimeB)
+void KATimer::SetTime(unsigned long TimeA, unsigned long TimeB)
 {
 	const unsigned PROGMEM Divs[] = { 1, 8, 64, 256, 1024 };
 	const unsigned PROGMEM Caps[] = { 255, 65535 };
@@ -160,9 +160,9 @@ void Timer::SetTime(unsigned long TimeA, unsigned long TimeB)
 	Scale	=	i + 1;
 }
 
-void Timer::SetPrefs(SCALER Scale, unsigned CapA, unsigned CapB)
+void KATimer::SetPrefs(SCALER Div, unsigned CapA, unsigned CapB)
 {
-	Scale	=	Scale;
+	Scale	=	Div;
 	Count	=	CapA;
 	Prev		=	CapB;
 }

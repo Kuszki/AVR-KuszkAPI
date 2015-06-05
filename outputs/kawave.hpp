@@ -1,6 +1,6 @@
 /***********************************************************************
  *
- * Lightweight AVR PWM Waveform C++ bindings for KALibs
+ * Lightweight AVR PWM KAWaveform C++ bindings for KALibs
  * Copyright (C) 2015  Łukasz "Kuszki" Dróżdż
  *
  * This program is free software; you can redistribute it and/or modify
@@ -26,14 +26,14 @@
 #include <avr/io.h>
 
 /*! \file		kawave.hpp
- *  \brief	Zawiera deklaracje klasy KAWave.
+ *  \brief	Zawiera deklaracje klasy KAKAWave.
  *
  * Deklaracja zamieszczona w innym pliku pomaga uniknąć chaosu w organizacji kodu.
  *
  */
 
 /*! \file		kawave.cpp
- *  \brief	Zawiera implementacje klasy KAWave.
+ *  \brief	Zawiera implementacje klasy KAKAWave.
  *
  * Implementacja każdej klasy w innym pliku pomaga uniknąć chaosu w organizacji kodu.
  *
@@ -46,7 +46,7 @@
  * Klasa umożliwia automatyczne utworzenie generatora sygnału prostokątnego o podanym wypełnieniu i częstotliwości.
  *
  */
-class Wave
+class KAWave
 {
 
 	/*! \brief		Enumeracja dostępnych generatorów.
@@ -99,14 +99,14 @@ class Wave
 		 * Inicjuje wszystkie pola obiektu na zero.
 		 *
 		 */
-		Wave(WAVE Number);
+		KAWave(WAVE Number);
 
 		/*! \brief		Destruktor obiektu.
 		 *
 		 * Zatrzymuje bierzący generator, nie zeruje jednak jego stanu.
 		 *
 		 */
-		~Wave(void);
+		~KAWave(void);
 
 		/*! \brief		Aktywuje generator.
 		 *  \return		Powodzenie operacji.
@@ -148,7 +148,7 @@ class Wave
 		bool Active(void) const;
 
 		/*! \brief		Ustawia generator.
-		 *  \param [in]	Width Wypełnienie przebiegu (od 0 do 255)..
+		 *  \param [in]	Width Wypełnienie przebiegu (od 0 do 255).
 		 *
 		 * Ustala wypełnienie generowanego przebiegu. Nie zmienia jednak aktualnej pracy generatora - aby tego dokonać wywołaj ponownie metodę Start() lub Refresh().
 		 *

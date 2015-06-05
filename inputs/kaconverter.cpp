@@ -15,23 +15,12 @@ double KAConverter::GetVoltage(void) const
 
 unsigned KAConverter::GetValue(PORT Port)
 {
-	unsigned Value;
+	ADMUX	=	(Port | 64) & -33;
+	ADCSRA	=	199;
 
-	ADMUX	=	Port;
-	ADMUX	|=	(1 << REFS0);
-	ADMUX	&=	~(1 << ADLAR);
+	while (ADCSRA & 64);
 
-	ADCSRA 	|=	(1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
-	ADCSRA	|=	(1 << ADEN);
-
-	ADCSRA	|=	(1 << ADSC);
-
-	while (ADCSRA & (1 << ADSC));
-
-	Value = ADCL;
-	Value = (ADCH << 8) + Value;
-
-	return Value;
+	return ADCL + (ADCH << 8);
 }
 
 double KAConverter::GetVoltage(PORT Port)

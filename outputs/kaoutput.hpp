@@ -47,9 +47,9 @@ class KAOutput : public KAPin
 
 	public:
 
-		/*! \brief			Konstruktor obiektu.
-		 *  \param [in]		Port		Port wyprowadzenia.
-		 *  \param [in]		Mask		Maska bitowa.
+		/*! \brief		Konstruktor obiektu.
+		 *  \param [in]	Port		Port wyprowadzenia.
+		 *  \param [in]	Mask		Maska bitowa.
 		 *
 		 * Inicjuje wszystkie pola obiektu i ustala wyprowadzenie portu na wyjściowe.
 		 *
@@ -101,6 +101,29 @@ class KAOutput : public KAPin
 		 *
 		 */
 		bool GetState(void) const;
+
+		/*! \brief		Ustala stan wyjścia.
+		 *  \param [in]	Port		Port wyprowadzenia.
+		 *  \param [in]	Mask		Maska bitowa.
+		 *  \param [in]	State	Nowy stan wyjścia.
+		 *
+		 * Zmienia dotychczasowy stan wyjścia na wybrany.
+		 *
+		 */
+		static void SetState(PORT Port,
+						 char Maskbool,
+						 bool State);
+
+		/*! \brief		Sprawdza stan wyjścia.
+		 *  \param [in]	Port		Port wyprowadzenia.
+		 *  \param [in]	Mask		Maska bitowa.
+		 *  \return		Aktualny stan wyjścia.
+		 *
+		 * Pobiera aktualny stan wyjścia.
+		 *
+		 */
+		static bool GetState(PORT Port,
+						 char Mask);
 
 };
 

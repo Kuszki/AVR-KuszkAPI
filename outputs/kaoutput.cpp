@@ -37,3 +37,16 @@ bool KAOutput::GetState(void) const
 {
 	return GetPort(ID) & MASK;
 }
+
+void KAOutput::SetState(PORT Port, char Mask, bool State)
+{
+	SetOutputMode(Port, Mask);
+
+	if (State) GetPort(Port) |= Mask;
+	else GetPort(Port) &= ~Mask;
+}
+
+bool KAOutput::GetState(PORT Port, char Mask)
+{
+	return GetPort(Port) & Mask;
+}

@@ -1,9 +1,9 @@
 #include "kawave.hpp"
 
-unsigned char Wave::Scale	=	0;
-unsigned char Wave::Mode		=	0;
+unsigned char KAWave::Scale	=	0;
+unsigned char KAWave::Mode	=	0;
 
-Wave::Wave(WAVE Number)
+KAWave::KAWave(WAVE Number)
 : ID(Number), Count(0)
 {
 	switch (ID)
@@ -15,13 +15,13 @@ Wave::Wave(WAVE Number)
 		break;
 		case W_2:
 
-			DDRD		|=	4;
+			DDRD		|=	8;
 
 		break;
 	}
 }
 
-Wave::~Wave(void)
+KAWave::~KAWave(void)
 {
 	switch (ID)
 	{
@@ -34,17 +34,17 @@ Wave::~Wave(void)
 		case W_2:
 
 			TCCR2A	&=	~32;
-			DDRD		&=	~4;
+			DDRD		&=	~8;
 
 		break;
 	}
 }
 
-bool Wave::Start(void)
+bool KAWave::Start(void)
 {
 	if (!Count || !Scale || !Mode) return false;
 
-	TCCR2A	=	Mode | (TCCR2A & 128) | (TCCR2A & 32);
+	TCCR2A	=	Mode | (TCCR2A & 160);
 	TCCR2B	=	Scale;
 
 	switch (ID)
@@ -70,7 +70,7 @@ bool Wave::Start(void)
 	return true;
 }
 
-void Wave::Stop(void)
+void KAWave::Stop(void)
 {
 	switch (ID)
 	{
@@ -83,7 +83,7 @@ void Wave::Stop(void)
 	}
 }
 
-void Wave::Resume(void)
+void KAWave::Resume(void)
 {
 	switch (ID)
 	{
@@ -98,11 +98,11 @@ void Wave::Resume(void)
 	sei();
 }
 
-bool Wave::Refresh(void)
+bool KAWave::Refresh(void)
 {
 	if (!Count || !Scale || !Mode) return false;
 
-	TCCR2A	=	Mode | (TCCR2A & 128) | (TCCR2A & 32);
+	TCCR2A	=	Mode | (TCCR2A & 160);
 	TCCR2B	=	Scale;
 
 	switch (ID)
@@ -124,7 +124,7 @@ bool Wave::Refresh(void)
 	return true;
 }
 
-bool Wave::Active(void) const
+bool KAWave::Active(void) const
 {
 	switch (ID)
 	{
@@ -137,12 +137,12 @@ bool Wave::Active(void) const
 	}
 }
 
-void Wave::SetWidth(unsigned char Width)
+void KAWave::SetWidth(unsigned char Width)
 {
 	Count = Width;
 }
 
-void Wave::SetFreq(FREQ Freq)
+void KAWave::SetFreq(FREQ Freq)
 {
 	const unsigned char PROGMEM Divs[]		=	{ 0, 1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 7 };
 	const unsigned char PROGMEM Modes[]	=	{ 0, 3, 1, 3, 1, 3, 1, 1, 1, 1, 3, 1 };
