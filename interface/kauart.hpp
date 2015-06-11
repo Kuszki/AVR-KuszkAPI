@@ -71,7 +71,7 @@ class KAUart
 		volatile static Buffer* IN;	//!< Bufor danych wejściowych.
 		volatile static Buffer* OUT;	//!< Bufor danych wyjściowych.
 
-		size_t Current;
+		volatile unsigned Current;	//!< Aktualna pozycja przy odbieraniu pakietu.
 
 	public:
 

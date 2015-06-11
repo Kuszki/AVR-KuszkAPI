@@ -73,7 +73,7 @@ class KATimer
 		OFF,		//!< Zerowy prescaler - brak zliczania.
 		P_1,		//!< Prescaler 1/1.
 		P_8,		//!< Prescaler 1/8.
-		P_64,		//!< Prescaler 1/64.
+		P_64,	//!< Prescaler 1/64.
 		P_256,	//!< Prescaler 1/265.
 		P_1024	//!< Prescaler 1/1024.
 	};

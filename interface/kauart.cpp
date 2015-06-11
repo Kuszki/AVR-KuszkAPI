@@ -12,7 +12,7 @@ KAUart::KAUart(unsigned Biterate)
 	Biterate = (F_CPU / 8 / Biterate - 1) / 2;
 
 	UCSR0A = 0;
-	UCSR0C = 0x06;
+	UCSR0C = 6;
 
 	UBRR0H = Biterate >> 8;
 	UBRR0L = Biterate;
@@ -59,9 +59,7 @@ void KAUart::Send(char Char)
 
 void KAUart::Send(const char* String)
 {
-	register char Buff;
-
-	while (Buff = *String++) Send(Buff);
+	while (*String) Send(*String++);
 }
 
 void KAUart::Send(const void* Data, size_t Size)
@@ -158,4 +156,3 @@ ISR(USART_UDRE_vect)
 	}
 	else UCSR0B &= ~(1 << UDRIE0);
 }
-
