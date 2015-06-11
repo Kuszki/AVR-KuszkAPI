@@ -111,7 +111,7 @@ class KAOutput : public KAPin
 		 *
 		 */
 		static void SetState(PORT Port,
-						 char Maskbool,
+						 char Mask,
 						 bool State);
 
 		/*! \brief		Sprawdza stan wyjścia.
