@@ -8,8 +8,15 @@ KASwitch::KASwitch(PORT Port, char Mask, ONCHANGE Proc, EVENT Event, MODE Mode)
 
 	Last		=	(Mode == PULLUP);
 
-	if (Mode == NORMAL) SetInputMode(ID, MASK);
-	else SetPullupMode(ID, MASK);
+	switch (Mode)
+	{
+		case NORMAL:
+			SetInputMode(ID, MASK);
+		break;
+		case PULLUP:
+			SetPullupMode(ID, MASK);
+		break;
+	}
 }
 
 bool KASwitch::Check(void)
@@ -50,11 +57,8 @@ void KASwitch::SetAction(ONCHANGE Proc)
 
 void KASwitch::SetMode(EVENT Event)
 {
-	if (Event == ON_RISING) Count = 1;
-	else Count = 0;
-
-	if (Event == ON_SWITCH) Change = 1;
-	else Change = 2;
+	Count	=	(Event == ON_RISING) ? 1 : 0;
+	Change	=	(Event == ON_SWITCH) ? 1 : 2;
 }
 
 void KASwitch::SetState(bool State)
