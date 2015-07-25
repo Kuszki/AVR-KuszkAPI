@@ -1,7 +1,7 @@
 #include "kauart.hpp"
 
-volatile KAUart::Buffer RecvBuff = {0, 0};
-volatile KAUart::Buffer SendBuff = {0, 0};
+volatile KAUart::Buffer RecvBuff 		= {0, 0};
+volatile KAUart::Buffer SendBuff 		= {0, 0};
 
 volatile KAUart::Buffer* KAUart::IN	= &RecvBuff;
 volatile KAUart::Buffer* KAUart::OUT	= &SendBuff;
@@ -109,6 +109,46 @@ bool KAUart::Wait(unsigned Time) const
 	while (IN->Head == IN->Tail);
 
 	return true;
+}
+
+KAUart& KAUart::operator << (double Number)
+{
+	char Buff[32];
+
+	dtostrf(Number, 0, 5, Buff);
+
+	Send(Buff);
+
+	return *this;
+}
+
+KAUart& KAUart::operator << (unsigned Unsigned)
+{
+	char Buff[16];
+
+	itoa(Unsigned, Buff, 10);
+
+	Send(Buff);
+
+	return *this;
+}
+
+KAUart& KAUart::operator << (int Integer)
+{
+	char Buff[16];
+
+	itoa(Integer, Buff, 10);
+
+	Send(Buff);
+
+	return *this;
+}
+
+KAUart& KAUart::operator << (bool Bool)
+{
+	Send(Bool ? "true" : "false");
+
+	return *this;
 }
 
 KAUart& KAUart::operator << (char Char)

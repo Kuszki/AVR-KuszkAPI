@@ -169,6 +169,11 @@ class KAUart
 		 */
 		bool Wait(unsigned Time = 0) const;
 
+		KAUart& operator << (double Number);
+		KAUart& operator << (unsigned Unsigned);
+		KAUart& operator << (int Integer);
+		KAUart& operator << (bool Bool);
+
 		KAUart& operator << (char Char);
 		KAUart& operator << (const char* String);
 
