@@ -44,7 +44,7 @@ void KASpi::Send(char Char)
 {
 	SPDR = Char;
 
-	while (!(SPSR & 0b10000000)) asm volatile("nop");
+	while (!(SPSR & 0b10000000));
 }
 
 void KASpi::Send(const char* String)
@@ -63,7 +63,7 @@ char KASpi::Recv(void)
 {
 	SPDR = 0;
 
-	while (!(SPSR & 0b10000000)) asm volatile("nop");
+	while (!(SPSR & 0b10000000));
 
 	return SPDR;
 }

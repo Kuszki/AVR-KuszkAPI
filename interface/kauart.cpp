@@ -71,7 +71,7 @@ void KAUart::Send(const void* Data, size_t Size)
 
 char KAUart::Recv(void)
 {
-    while (IN->Head == IN->Tail) asm volatile("nop");;
+    while (IN->Head == IN->Tail);;
 
     IN->Tail = (IN->Tail + 1) & (BUFF_SIZE - 1);
 
@@ -106,7 +106,7 @@ bool KAUart::Ready(void) const
 
 bool KAUart::Wait(unsigned Time) const
 {
-	while (IN->Head == IN->Tail) asm volatile("nop");
+	while (IN->Head == IN->Tail);
 
 	return true;
 }
