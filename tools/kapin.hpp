@@ -1,41 +1,52 @@
-/***********************************************************************
- *
- * Lightweight AVR Pins C++ bindings for KALibs
- * Copyright (C) 2015  Łukasz "Kuszki" Dróżdż
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- **********************************************************************/
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *                                                                         *
+ *  Lightweight AVR Pins C++ bindings for KALibs                           *
+ *  Copyright (C) 2015  Łukasz "Kuszki" Dróżdż            l.drozdz@o2.pl   *
+ *                                                                         *
+ *  This program is free software: you can redistribute it and/or modify   *
+ *  it under the terms of the GNU General Public License as published by   *
+ *  the  Free Software Foundation, either  version 3 of the  License, or   *
+ *  (at your option) any later version.                                    *
+ *                                                                         *
+ *  This  program  is  distributed  in the hope  that it will be useful,   *
+ *  but WITHOUT ANY  WARRANTY;  without  even  the  implied  warranty of   *
+ *  MERCHANTABILITY  or  FITNESS  FOR  A  PARTICULAR  PURPOSE.  See  the   *
+ *  GNU General Public License for more details.                           *
+ *                                                                         *
+ *  You should have  received a copy  of the  GNU General Public License   *
+ *  along with this program. If not, see http://www.gnu.org/licenses/.     *
+ *                                                                         *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #ifndef _KALIBS_KAPIN_HPP
 #define _KALIBS_KAPIN_HPP
 
-#define PIN_0		KAPin::PORT_D, 1		//!< Pin 0.
-#define PIN_1		KAPin::PORT_D, 2		//!< Pin 1.
-#define PIN_2		KAPin::PORT_D, 4		//!< Pin 2.
-#define PIN_3		KAPin::PORT_D, 8		//!< Pin 3.
-#define PIN_4		KAPin::PORT_D, 16		//!< Pin 4.
-#define PIN_5		KAPin::PORT_D, 32		//!< Pin 5.
-#define PIN_6		KAPin::PORT_D, 64		//!< Pin 6.
-#define PIN_7		KAPin::PORT_D, 128		//!< Pin 7.
+#define PORT_0		0b00000001			//!< Bit 0.
+#define PORT_1		0b00000010			//!< Bit 1.
+#define PORT_2		0b00000100			//!< Bit 2.
+#define PORT_3		0b00001000			//!< Bit 3.
+#define PORT_4		0b00010000			//!< Bit 4.
+#define PORT_5		0b00100000			//!< Bit 5.
+#define PORT_6		0b01000000			//!< Bit 6.
+#define PORT_7		0b10000000			//!< Bit 7.
 
-#define PIN_8		KAPin::PORT_B, 1		//!< Pin 8.
-#define PIN_9		KAPin::PORT_B, 2		//!< Pin 9.
-#define PIN_10		KAPin::PORT_B, 4		//!< Pin 10.
-#define PIN_11		KAPin::PORT_B, 8		//!< Pin 11.
-#define PIN_12		KAPin::PORT_B, 16		//!< Pin 12.
-#define PIN_13		KAPin::PORT_B, 32		//!< Pin 13.
+#define PD_0		KAPin::PORT_D, PORT_0	//!< Port D, bit 0.
+#define PD_1		KAPin::PORT_D, PORT_1	//!< Port D, bit 1.
+#define PD_2		KAPin::PORT_D, PORT_2	//!< Port D, bit 2.
+#define PD_3		KAPin::PORT_D, PORT_3	//!< Port D, bit 3.
+#define PD_4		KAPin::PORT_D, PORT_4	//!< Port D, bit 4.
+#define PD_5		KAPin::PORT_D, PORT_5	//!< Port D, bit 5.
+#define PD_6		KAPin::PORT_D, PORT_6	//!< Port D, bit 6.
+#define PD_7		KAPin::PORT_D, PORT_7	//!< Port D, bit 7.
+
+#define PB_0		KAPin::PORT_B, PORT_0	//!< Port B, bit 0.
+#define PB_1		KAPin::PORT_B, PORT_1	//!< Port B, bit 1.
+#define PB_2		KAPin::PORT_B, PORT_2	//!< Port B, bit 2.
+#define PB_3		KAPin::PORT_B, PORT_3	//!< Port B, bit 3.
+#define PB_4		KAPin::PORT_B, PORT_4	//!< Port B, bit 4.
+#define PB_5		KAPin::PORT_B, PORT_5	//!< Port B, bit 5.
+#define PB_6		KAPin::PORT_B, PORT_6	//!< Port B, bit 6.
+#define PB_7		KAPin::PORT_B, PORT_7	//!< Port B, bit 7.
 
 #include <avr/io.h>
 
