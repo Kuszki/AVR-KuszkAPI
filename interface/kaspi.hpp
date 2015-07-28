@@ -99,7 +99,7 @@ class KASpi
 		void Unselect(KAPin::PORT Port, char Mask);
 
 		/*! \brief		Wysłanie porcji danych.
-		 *  \param [in]	Dane do wysłania.
+		 *  \param [in]	Char Dane do wysłania.
 		 *  \warning		Do użytku tylko przy pracy jako `master`. Aby wysłać dane jako `slave` należy zrobić to podczas przerwania sygnalizującego odbiór danych `SPI_vect`.
 		 *
 		 * Wysyła jeden bajt danych.
@@ -125,7 +125,6 @@ class KASpi
 		void Send(const void* Data, size_t Size);
 
 		/*! \brief		Odebranie porcji danych.
-		 *  \param [in]	Dane do wysłania.
 		 *  \warning		Do użytku tylko przy pracy jako `master`. Aby odebrać dane jako `slave` należy zrobić to podczas przerwania sygnalizującego odbiór danych `SPI_vect`.
 		 *
 		 * Wysyła pusty bajt w celu wymuszenia odbioru danych z urządzenia `slave`.

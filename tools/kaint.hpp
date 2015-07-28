@@ -77,7 +77,8 @@ class KAInt
 	public:
 
 		/*! \brief		Konstruktor obiektu.
-		 *  \param [in]	Int ID przerwania.
+		 *  \param [in]	Int	ID przerwania.
+		 *   \param [in]	Mode	Tryb działania przerwania.
 		 *
 		 * Inicjuje wszystkie wymagane pola.
 		 *
