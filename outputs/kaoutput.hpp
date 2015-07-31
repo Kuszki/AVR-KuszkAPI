@@ -23,6 +23,12 @@
 
 #include "../tools/kapin.hpp"
 
+#ifndef DELAY
+#define DELAY(t) while (t--) _delay_ms(1)	//!< Makro pozwalające wybrać w jakiej metody używać w celu generacji opóźnienia.
+#endif
+
+#include <util/delay.h>
+
 /*! \file kaoutput.hpp
  *  \brief Zawiera deklaracje klasy KAOutput.
  *
@@ -120,6 +126,18 @@ class KAOutput : public KAPin
 		 *
 		 */
 		static bool GetState(PORT Port, char Mask);
+
+		/*! \brief Przełącza wyjście.
+		 *  \param [in]	Port		Port wyprowadzenia.
+		 *  \param [in]	Mask		Maska bitowa.
+		 *  \param [in]	Count	Liczba zmian stanu.
+		 *  \param [in]	Delay	Opóźnienie według wybranego algorytmu.
+		 *  \see			Delay(t).
+		 *
+		 * Ustala odwrotny stan na wyjściu wybraną ilość razy. Domyślnie jednostką opóźnienia jest wielokrotność `1 ms`.
+		 *
+		 */
+		static void SwitchState(PORT Port, char Mask, char Count = 1, char Delay = 1);
 
 };
 
