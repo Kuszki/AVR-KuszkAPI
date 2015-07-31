@@ -23,7 +23,8 @@
 
 #include <stdlib.h>
 
-#define FREE_RAM getFreeRAM()		//!< Makro wyświetlające dostępną pamięć RAM.
+#define FREE_RAM	getFreeRAM()		//!< Makro wyświetlające dostępną pamięć RAM.
+#define PGM_V		(const void*)&		//!< Makro ułatwiające używanie pamięci programu w bibliotekach.
 
 /*! \file		kamemory.hpp
  *  \brief	Zawiera deklaracje operatorów KLMemory.

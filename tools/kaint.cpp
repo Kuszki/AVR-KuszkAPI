@@ -64,10 +64,10 @@ KAInt::MODE KAInt::GetMode(INT Int)
 	switch (Int)
 	{
 		case INT_0:
-		return MODE(EICRA & 0b00000011);
+			return MODE(EICRA & 0b00000011);
 
 		case INT_1:
-		return MODE((EICRA & 0b00001100) >> 2);
+			return MODE((EICRA & 0b00001100) >> 2);
 
 	}
 }

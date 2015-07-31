@@ -8,10 +8,10 @@ volatile unsigned char& KAPin::GetPin(PORT Port)
 	switch (Port)
 	{
 		case PORT_B:
-		return PINB;
+			return PINB;
 
 		case PORT_D:
-		return PIND;
+			return PIND;
 	}
 }
 
@@ -20,10 +20,10 @@ volatile unsigned char& KAPin::GetPort(PORT Port)
 	switch (Port)
 	{
 		case PORT_B:
-		return PORTB;
+			return PORTB;
 
 		case PORT_D:
-		return PORTD;
+			return PORTD;
 	}
 }
 
@@ -32,10 +32,10 @@ volatile unsigned char& KAPin::GetFlag(PORT Port)
 	switch (Port)
 	{
 		case PORT_B:
-		return DDRB;
+			return DDRB;
 
 		case PORT_D:
-		return DDRD;
+			return DDRD;
 	}
 }
 

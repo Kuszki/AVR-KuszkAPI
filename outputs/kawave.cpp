@@ -144,9 +144,9 @@ void KAWave::SetWidth(unsigned char Width)
 
 void KAWave::SetFreq(FREQ Freq)
 {
-	const unsigned char PROGMEM Divs[]		=	{ 0, 1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 7 };
-	const unsigned char PROGMEM Modes[]	=	{ 0, 3, 1, 3, 1, 3, 1, 1, 1, 1, 3, 1 };
+	const unsigned char Divs[]	PROGMEM =	{ 0, 1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 7 };
+	const unsigned char Modes[]	PROGMEM =	{ 0, 3, 1, 3, 1, 3, 1, 1, 1, 1, 3, 1 };
 
-	Scale	=	Divs[Freq];
-	Mode		=	Modes[Freq];
+	Scale	=	__LPM(&Divs[Freq]);
+	Mode		=	__LPM(&Modes[Freq]);
 }
