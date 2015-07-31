@@ -9,6 +9,7 @@ KASpi::KASpi(MODE Mode)
 			KAPin::SetOutputMode(KAPin::PORT_B, 0b00101100);
 			KAPin::SetInputMode(KAPin::PORT_B, 0b00010000);
 
+			SPSR = 0b00000001;
 			SPCR = 0b01010000;
 
 		break;
@@ -25,7 +26,7 @@ KASpi::KASpi(MODE Mode)
 
 KASpi::~KASpi(void)
 {
-	SPCR = 0;
+	SPSR = SPCR = 0;
 
 	KAPin::SetInputMode(KAPin::PORT_B, 0b00111100);
 }
@@ -57,6 +58,21 @@ void KASpi::Send(const void* Data, size_t Size)
 	register const char* String = (char*) Data;
 
 	while (Size--) Send(*String++);
+}
+
+void KASpi::SendPgmChar(unsigned Adress)
+{
+	Send(__LPM(Adress));
+}
+
+void KASpi::SendPgmString(unsigned Adress)
+{
+	while (char c = __LPM(Adress++)) Send(c);
+}
+
+void KASpi::SendPgmData(unsigned Adress, size_t Size)
+{
+	while (Size--) Send(__LPM(Adress++));
 }
 
 char KASpi::Recv(void)
@@ -91,6 +107,13 @@ KASpi& KASpi::operator << (char Char)
 KASpi& KASpi::operator << (const char* String)
 {
 	Send(String);
+
+	return *this;
+}
+
+KASpi& KASpi::operator << (const void* Adress)
+{
+	SendPgmString((unsigned) Adress);
 
 	return *this;
 }

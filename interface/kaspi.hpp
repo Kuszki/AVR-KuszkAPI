@@ -26,6 +26,7 @@
 #include <stdlib.h>
 
 #include <avr/interrupt.h>
+#include <avr/pgmspace.h>
 
 /*! \file		kaspi.hpp
  *  \brief	Zawiera deklaracje klasy KASpi.
@@ -124,6 +125,31 @@ class KASpi
 		 */
 		void Send(const void* Data, size_t Size);
 
+		/*! \brief		Wysyła znak z pamięci programu.
+		 *  \param [in]	Adress	Adress danych w pamięci programu.
+		 *
+		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
+		 *
+		 */
+		void SendPgmChar(unsigned Adress);
+
+		/*! \brief		Wysyła ciąg znaków z pamięci programu.
+		 *  \param [in]	Adress	Adress danych w pamięci programu.
+		 *
+		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
+		 *
+		 */
+		void SendPgmString(unsigned Adress);
+
+		/*! \brief		Wysyła ciąg znaków z pamięci programu.
+		 *  \param [in]	Adress	Adress danych w pamięci programu.
+		 *  \param [in]	Size		Rozmiar danych.
+		 *
+		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
+		 *
+		 */
+		void SendPgmData(unsigned Adress, size_t Size);
+
 		/*! \brief		Odebranie porcji danych.
 		 *  \warning		Do użytku tylko przy pracy jako `master`. Aby odebrać dane jako `slave` należy zrobić to podczas przerwania sygnalizującego odbiór danych `SPI_vect`.
 		 *
@@ -146,6 +172,8 @@ class KASpi
 
 		KASpi& operator << (char Char);
 		KASpi& operator << (const char* String);
+
+		KASpi& operator << (const void* Adress);
 
 		KASpi& operator >> (char& Char);
 

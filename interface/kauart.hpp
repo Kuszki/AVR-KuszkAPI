@@ -24,6 +24,7 @@
 #include <stdlib.h>
 
 #include <avr/interrupt.h>
+#include <avr/pgmspace.h>
 #include <avr/io.h>
 
 #define BUFF_SIZE 32	//!< Rozmiar bufora wejścia/wyjścia.
@@ -129,6 +130,31 @@ class KAUart
 		 */
 		void Send(const void* Data, size_t Size);
 
+		/*! \brief		Wysyła znak z pamięci programu.
+		 *  \param [in]	Adress	Adress danych w pamięci programu.
+		 *
+		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
+		 *
+		 */
+		void SendPgmChar(unsigned Adress);
+
+		/*! \brief		Wysyła ciąg znaków z pamięci programu.
+		 *  \param [in]	Adress	Adress danych w pamięci programu.
+		 *
+		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
+		 *
+		 */
+		void SendPgmString(unsigned Adress);
+
+		/*! \brief		Wysyła ciąg znaków z pamięci programu.
+		 *  \param [in]	Adress	Adress danych w pamięci programu.
+		 *  \param [in]	Size		Rozmiar danych.
+		 *
+		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
+		 *
+		 */
+		void SendPgmData(unsigned Adress, size_t Size);
+
 		/*! \brief		Odbiera dane binarne.
 		 *  \return		Odebrane dane.
 		 *  \note			Gdy bufor wejściowy jest pusty metoda zwróci 0.
@@ -169,13 +195,15 @@ class KAUart
 		 */
 		bool Wait(unsigned Time = 0) const;
 
-		KAUart& operator << (double Number);
 		KAUart& operator << (unsigned Unsigned);
+		KAUart& operator << (double Number);
 		KAUart& operator << (int Integer);
 		KAUart& operator << (bool Bool);
 
 		KAUart& operator << (char Char);
 		KAUart& operator << (const char* String);
+
+		KAUart& operator << (const void* Adress);
 
 		KAUart& operator >> (char& Char);
 

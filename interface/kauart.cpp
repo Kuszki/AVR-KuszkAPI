@@ -6,6 +6,9 @@ volatile KAUart::Buffer SendBuff 		= {0, 0};
 volatile KAUart::Buffer* KAUart::IN	= &RecvBuff;
 volatile KAUart::Buffer* KAUart::OUT	= &SendBuff;
 
+static const char TRUE_STR[]		 	= "true";
+static const char FALSE_STR[] 		= "flase";
+
 KAUart::KAUart(unsigned Biterate)
 : Current(0)
 {
@@ -69,9 +72,24 @@ void KAUart::Send(const void* Data, size_t Size)
 	while (Size--) Send(*String++);
 }
 
+void KAUart::SendPgmChar(unsigned Adress)
+{
+	Send(__LPM(Adress));
+}
+
+void KAUart::SendPgmString(unsigned Adress)
+{
+	while (char c = __LPM(Adress++)) Send(c);
+}
+
+void KAUart::SendPgmData(unsigned Adress, size_t Size)
+{
+	while (Size--) Send(__LPM(Adress++));
+}
+
 char KAUart::Recv(void)
 {
-    while (IN->Head == IN->Tail);;
+    while (IN->Head == IN->Tail);
 
     IN->Tail = (IN->Tail + 1) & (BUFF_SIZE - 1);
 
@@ -111,22 +129,22 @@ bool KAUart::Wait(unsigned Time) const
 	return true;
 }
 
-KAUart& KAUart::operator << (double Number)
+KAUart& KAUart::operator << (unsigned Unsigned)
 {
-	char Buff[32];
+	char Buff[16];
 
-	dtostrf(Number, 0, 5, Buff);
+	itoa(Unsigned, Buff, 10);
 
 	Send(Buff);
 
 	return *this;
 }
 
-KAUart& KAUart::operator << (unsigned Unsigned)
+KAUart& KAUart::operator << (double Number)
 {
-	char Buff[16];
+	char Buff[32];
 
-	itoa(Unsigned, Buff, 10);
+	dtostrf(Number, 0, 5, Buff);
 
 	Send(Buff);
 
@@ -161,6 +179,13 @@ KAUart& KAUart::operator << (char Char)
 KAUart& KAUart::operator << (const char* String)
 {
 	Send(String);
+
+	return *this;
+}
+
+KAUart& KAUart::operator << (const void* Adress)
+{
+	SendPgmString((unsigned) Adress);
 
 	return *this;
 }
