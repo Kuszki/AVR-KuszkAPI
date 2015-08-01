@@ -40,8 +40,6 @@ bool KAOutput::GetState(void) const
 
 void KAOutput::SetState(PORT Port, char Mask, bool State)
 {
-	SetOutputMode(Port, Mask);
-
 	if (State) GetPort(Port) |= Mask;
 	else GetPort(Port) &= ~Mask;
 }
@@ -53,8 +51,6 @@ bool KAOutput::GetState(PORT Port, char Mask)
 
 void KAOutput::SwitchState(PORT Port, char Mask, char Count, char Delay)
 {
-	SetOutputMode(Port, Mask);
-
 	bool State = GetState(Port, Mask);
 
 	while (Count--)
