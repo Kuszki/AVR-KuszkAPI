@@ -78,13 +78,18 @@ class KAInt
 
 		/*! \brief		Konstruktor obiektu.
 		 *  \param [in]	Int	ID przerwania.
-		 *   \param [in]	Mode	Tryb działania przerwania.
+		 *  \param [in]	Mode	Tryb działania przerwania.
 		 *
 		 * Inicjuje wszystkie wymagane pola.
 		 *
 		 */
 		KAInt(INT Int, MODE Mode = ON_RISING);
 
+		/*! \brief		Destruktor obiektu.
+		 *
+		 * Wyłącza przerwanie.
+		 *
+		 */
 		~KAInt(void);
 
 		/*! \brief		Ustalenie trybu pracy przerwania.

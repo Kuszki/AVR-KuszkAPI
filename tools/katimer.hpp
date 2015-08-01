@@ -23,7 +23,27 @@
 
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
+#include <avr/wdt.h>
 #include <avr/io.h>
+
+#define REBOOT_PROC __attribute__((naked)) __attribute__((section(".init3")))
+#define REBOOT_CODE __attribute__ ((section (".noinit")))
+
+#define wdt_intenable(value) \
+__asm__ __volatile__ (  \
+    "in __tmp_reg__,__SREG__" "\n\t"    \
+    "cli" "\n\t"    \
+    "wdr" "\n\t"    \
+    "sts %0,%1" "\n\t"  \
+    "out __SREG__,__tmp_reg__" "\n\t"   \
+    "sts %0,%2" "\n\t" \
+    : /* no outputs */  \
+    : "M" (_SFR_MEM_ADDR(_WD_CONTROL_REG)), \
+    "r" (_BV(_WD_CHANGE_BIT) | _BV(WDE)), \
+    "r" ((uint8_t) ((value & 0x08 ? _WD_PS3_MASK : 0x00) | \
+        _BV(WDE) | (value & 0x07) | _BV(WDIE)) ) \
+    : "r0"  \
+)
 
 /*! \file		katimer.hpp
  *  \brief	Zawiera deklaracje klasy KATimer.

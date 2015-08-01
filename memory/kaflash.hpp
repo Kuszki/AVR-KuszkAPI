@@ -129,6 +129,8 @@ class KAFlash
 		 */
 		static void Write(unsigned Start, char Char);
 
+		char operator [] (unsigned Adress) const;
+
 };
 
 #endif

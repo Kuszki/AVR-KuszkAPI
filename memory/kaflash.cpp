@@ -47,3 +47,8 @@ void KAFlash::Write(unsigned Start, char Char)
 {
 	eeprom_write_byte((unsigned char*) Start, Char);
 }
+
+char KAFlash::operator [] (unsigned Adress) const
+{
+	return Read(Adress);
+}
