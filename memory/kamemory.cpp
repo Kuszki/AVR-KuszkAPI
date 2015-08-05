@@ -25,7 +25,7 @@ size_t getFreeRAM(void)
   extern int	__heap_start;
   extern int*	__brkval;
 
-  int 		tmp;
+  char 		tmp;
 
   return (size_t) &tmp - (__brkval ? (size_t) __brkval : (size_t) &__heap_start);
 }
