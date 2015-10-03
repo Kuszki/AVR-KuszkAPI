@@ -52,6 +52,18 @@
 class KAUart
 {
 
+	public: enum BAUD : unsigned long
+	{
+		B_1200	= 1200,	//!< Transmisja 1200 bps.
+		B_2400	= 2400,	//!< Transmisja 2400 bps.
+		B_4800	= 4800,	//!< Transmisja 4800 bps.
+		B_9600	= 9600,	//!< Transmisja 9600 bps.
+		B_19200	= 19200,	//!< Transmisja 19200 bps.
+		B_38400	= 38400,	//!< Transmisja 38400 bps.
+		B_57600	= 57600,	//!< Transmisja 57600 bps.
+		B_115200	= 115200	//!< Transmisja 115200 bps.
+	};
+
 	public:
 
 		/*! \brief		Struktura bufora danych.
@@ -82,7 +94,7 @@ class KAUart
 		 * Inicjuje rejestry informujące o parametrach transmisji danych..
 		 *
 		 */
-		KAUart(unsigned Biterate = 9600);
+		KAUart(BAUD Biterate = B_9600);
 
 		/*! \brief		Destruktor obiektu.
 		 *

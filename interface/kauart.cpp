@@ -9,16 +9,16 @@ volatile KAUart::Buffer* KAUart::OUT	= &SendBuff;
 static const char TRUE_STR[]		 	= "true";
 static const char FALSE_STR[] 		= "flase";
 
-KAUart::KAUart(unsigned Biterate)
+KAUart::KAUart(BAUD Biterate)
 : Current(0)
 {
-	Biterate = (F_CPU / 8 / Biterate - 1) / 2;
+	unsigned Baud = F_CPU / (8 * Biterate) - 1;
 
-	UCSR0A = 0;
-	UCSR0C = 6;
+	UCSR0A = 0b00000010;
+	UCSR0C = 0b00000110;
 
-	UBRR0H = Biterate >> 8;
-	UBRR0L = Biterate;
+	UBRR0H = Baud >> 8;
+	UBRR0L = Baud;
 
 	sei();
 }
@@ -36,7 +36,7 @@ KAUart::~KAUart(void)
 
 void KAUart::Start(void)
 {
-	UCSR0B = 152;
+	UCSR0B = 0b10011000;
 }
 
 void KAUart::Stop(void)
