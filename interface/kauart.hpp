@@ -27,7 +27,7 @@
 #include <avr/pgmspace.h>
 #include <avr/io.h>
 
-#define BUFF_SIZE 32	//!< Rozmiar bufora wejścia/wyjścia.
+#define BUFF_SIZE 64	//!< Rozmiar bufora wejścia/wyjścia.
 
 /*! \file		kauart.hpp
  *  \brief	Zawiera deklaracje klasy KAUart.
