@@ -51,7 +51,11 @@
  */
 class KAUart
 {
-
+	/*! \brief Wyliczenie przepustowości łącza.
+	 *
+	 * Umożliwia użycie standardowych wartości prędkości transmisji UART.
+	 *
+	 */
 	public: enum BAUD : unsigned long
 	{
 		B_1200	= 1200,	//!< Transmisja 1200 bps.
