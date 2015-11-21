@@ -22,10 +22,10 @@ void operator delete[] (void* Pointer)
 
 size_t getFreeRAM(void)
 {
-  extern int	__heap_start;
-  extern int*	__brkval;
+	extern int	__heap_start;
+	extern int*	__brkval;
 
-  char 		tmp;
+	char 		tmp;
 
-  return (size_t) &tmp - (__brkval ? (size_t) __brkval : (size_t) &__heap_start);
+	return (size_t) &tmp - (__brkval ? (size_t) __brkval : (size_t) &__heap_start);
 }
