@@ -24,7 +24,7 @@
 #include "../tools/kapin.hpp"
 
 #ifndef DELAY
-#define DELAY(t) { unsigned i = t; while (i--) _delay_ms(1); }	//!< Makro pozwalające wybrać w jakiej metody używać w celu generacji opóźnienia.
+#define DELAY(t) { unsigned i = t; while (i--) _delay_ms(1); }	//!< Makro pozwalające wybrać jakiej metody używać w celu generacji opóźnienia.
 #endif
 
 #include <util/delay.h>
