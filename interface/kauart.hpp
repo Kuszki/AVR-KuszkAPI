@@ -77,8 +77,8 @@ class KAUart
 		 */
 		struct Buffer
 		{
-			unsigned short Head;	//!< Koniec danych.
-			unsigned short Tail;	//!< Początek danych.
+			unsigned char Head;	//!< Koniec danych.
+			unsigned char Tail;	//!< Początek danych.
 
 			char Data[BUFF_SIZE];	//!< Bufor na dane.
 		};
@@ -86,7 +86,6 @@ class KAUart
 	protected:
 
 		volatile static Buffer* IN;	//!< Bufor danych wejściowych.
-		volatile static Buffer* OUT;	//!< Bufor danych wyjściowych.
 
 		volatile unsigned Current;	//!< Aktualna pozycja przy odbieraniu pakietu.
 
@@ -146,31 +145,6 @@ class KAUart
 		 */
 		void Send(const void* Data, size_t Size);
 
-		/*! \brief		Wysyła znak z pamięci programu.
-		 *  \param [in]	Adress	Adress danych w pamięci programu.
-		 *
-		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
-		 *
-		 */
-		void SendPgmChar(unsigned Adress);
-
-		/*! \brief		Wysyła ciąg znaków z pamięci programu.
-		 *  \param [in]	Adress	Adress danych w pamięci programu.
-		 *
-		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
-		 *
-		 */
-		void SendPgmString(unsigned Adress);
-
-		/*! \brief		Wysyła ciąg znaków z pamięci programu.
-		 *  \param [in]	Adress	Adress danych w pamięci programu.
-		 *  \param [in]	Size		Rozmiar danych.
-		 *
-		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
-		 *
-		 */
-		void SendPgmData(unsigned Adress, size_t Size);
-
 		/*! \brief		Odbiera dane binarne.
 		 *  \return		Odebrane dane.
 		 *  \note			Gdy bufor wejściowy jest pusty metoda zwróci 0.
@@ -202,14 +176,37 @@ class KAUart
 		bool Ready(void) const;
 
 		/*! \brief		Oczekiwanie na dane.
-		 *  \param [in]	Time Czas oczekiwania.
 		 *  \return		Stan bufora wejścia.
-		 *  \todo			Pomiar czasu. Tymaczasowo działa na nieskończony czas.
 		 *
-		 * Czeka określoną ilość milisekund na zdarzenie odbioru danych. Gdy zdarzenie w tym czasie nastąpi zwraca wartość prawda.
+		 * Czeka na zdarzenie odbioru danych. Gdy zdarzenie nastąpi zwraca wartość prawda.
 		 *
 		 */
-		bool Wait(unsigned Time = 0) const;
+		bool Wait(void) const;
+
+		/*! \brief		Wysyła znak z pamięci programu.
+		 *  \param [in]	Adress	Adress danych w pamięci programu.
+		 *
+		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
+		 *
+		 */
+		void SendPgmChar(unsigned Adress);
+
+		/*! \brief		Wysyła ciąg znaków z pamięci programu.
+		 *  \param [in]	Adress	Adress danych w pamięci programu.
+		 *
+		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
+		 *
+		 */
+		void SendPgmString(unsigned Adress);
+
+		/*! \brief		Wysyła ciąg znaków z pamięci programu.
+		 *  \param [in]	Adress	Adress danych w pamięci programu.
+		 *  \param [in]	Size		Rozmiar danych.
+		 *
+		 * Wysyła dane na które wskazuje parametr funkcji aż do napotkania terminatora.
+		 *
+		 */
+		void SendPgmData(unsigned Adress, size_t Size);
 
 		KAUart& operator << (unsigned Unsigned);
 		KAUart& operator << (double Number);

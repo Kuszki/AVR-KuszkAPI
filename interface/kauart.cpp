@@ -1,24 +1,22 @@
 #include "kauart.hpp"
 
-volatile KAUart::Buffer RecvBuff 		= {0, 0};
-volatile KAUart::Buffer SendBuff 		= {0, 0};
-
-volatile KAUart::Buffer* KAUart::IN	= &RecvBuff;
-volatile KAUart::Buffer* KAUart::OUT	= &SendBuff;
-
-static const char TRUE_STR[]		 	= "true";
-static const char FALSE_STR[] 		= "flase";
+volatile KAUart::Buffer	RecvBuff 		= { 0, 0 };
+volatile KAUart::Buffer*	KAUart::IN	= &RecvBuff;
 
 KAUart::KAUart(BAUD Biterate)
 : Current(0)
 {
 	unsigned Baud = F_CPU / (8 * Biterate) - 1;
 
+	cli();
+
+	UCSR0B = 0;
+
 	UCSR0A = 0b00000010;
 	UCSR0C = 0b00000110;
 
 	UBRR0H = Baud >> 8;
-	UBRR0L = Baud;
+	UBRR0L = Baud & 0xFF;
 
 	sei();
 }
@@ -41,7 +39,7 @@ void KAUart::Start(void)
 
 void KAUart::Stop(void)
 {
-	while (OUT->Head != OUT->Tail);
+	while (!(UCSR0A & (1 << UDRE0)));
 
 	UCSR0B = 0;
 
@@ -50,14 +48,7 @@ void KAUart::Stop(void)
 
 void KAUart::Send(char Char)
 {
-	register unsigned short Head = (OUT->Head + 1) & (BUFF_SIZE - 1);
-
-	while (Head == OUT->Tail);
-
-	OUT->Data[Head] = Char;
-	OUT->Head = Head;
-
-	UCSR0B |= (1 << UDRE0);
+	while (!(UCSR0A & (1 << UDRE0))); UDR0 = Char;
 }
 
 void KAUart::Send(const char* String)
@@ -70,21 +61,6 @@ void KAUart::Send(const void* Data, size_t Size)
 	register const char* String = (char*) Data;
 
 	while (Size--) Send(*String++);
-}
-
-void KAUart::SendPgmChar(unsigned Adress)
-{
-	Send(__LPM(Adress));
-}
-
-void KAUart::SendPgmString(unsigned Adress)
-{
-	while (char c = __LPM(Adress++)) Send(c);
-}
-
-void KAUart::SendPgmData(unsigned Adress, size_t Size)
-{
-	while (Size--) Send(__LPM(Adress++));
 }
 
 char KAUart::Recv(void)
@@ -122,11 +98,24 @@ bool KAUart::Ready(void) const
 	return (IN->Head != IN->Tail);
 }
 
-bool KAUart::Wait(unsigned Time) const
+bool KAUart::Wait(void) const
 {
-	while (IN->Head == IN->Tail);
+	while (!Ready()); return true;
+}
 
-	return true;
+void KAUart::SendPgmChar(unsigned Adress)
+{
+	Send(__LPM(Adress));
+}
+
+void KAUart::SendPgmString(unsigned Adress)
+{
+	while (char c = __LPM(Adress++)) Send(c);
+}
+
+void KAUart::SendPgmData(unsigned Adress, size_t Size)
+{
+	while (Size--) Send(__LPM(Adress++));
 }
 
 KAUart& KAUart::operator << (unsigned Unsigned)
@@ -201,23 +190,8 @@ ISR(USART_RX_vect)
 {
 	register char Buff = UDR0;
 
-	register unsigned short Head = (RecvBuff.Head + 1) & (BUFF_SIZE - 1);
+	register unsigned char Head = (RecvBuff.Head + 1) & (BUFF_SIZE - 1);
 
-	if (Head != RecvBuff.Tail)
-	{
-		RecvBuff.Head = Head;
-
-		RecvBuff.Data[Head] = Buff;
-	}
-}
-
-ISR(USART_UDRE_vect)
-{
-	if (SendBuff.Head != SendBuff.Tail)
-	{
-		SendBuff.Tail = (SendBuff.Tail + 1) & (BUFF_SIZE - 1);
-
-		UDR0 = SendBuff.Data[SendBuff.Tail];
-	}
-	else UCSR0B &= ~(1 << UDRIE0);
+	RecvBuff.Head = Head;
+	RecvBuff.Data[Head] = Buff;
 }
