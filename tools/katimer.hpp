@@ -106,7 +106,7 @@ class KATimer
 		unsigned char Scale;	//!< Aktualnie używany prescaler.
 
 		unsigned Count;		//!< Liczba impulsów do zliczenia.
-		unsigned Prev;		//!< Impulsy do pierwszego zdarzenia.
+		unsigned Prev;			//!< Impulsy do pierwszego zdarzenia.
 
 	public:
 
